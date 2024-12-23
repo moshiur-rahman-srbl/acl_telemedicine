@@ -135,17 +135,6 @@
                                                value="{{isset($settings->footer_tr) ? $settings->footer_tr : ''}}">
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="email">{{__('Merchant Integration')}}</label>
-                                        @if(Storage::exists('merchant/integration/integration.zip'))
-                                            <a class="text-primary" href="{{secure_file_link('merchant/integration/integration.zip', 'public')}}">({{__('Download Link')}})</a>
-                                        @endif
-                                        {{--<input type="file" class="form-control" name="integration" id="integration">--}}
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="integration" id="validatedCustomFile" title="">
-                                            <label class="custom-file-label" for="validatedCustomFile">{{__('Choose File...')}}</label>
-                                        </div>
-                                    </div>
                                     @if(\common\integration\BrandConfiguration::isAllowedSiteSettingHelpDocument())
                                         <div class="form-group">
                                             <label for="help-doc">{{__('Help Document')}}</label>

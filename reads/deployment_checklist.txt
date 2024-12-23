@@ -1,0 +1,23 @@
+after deploying new project, following steps should be done manually::::
+
+1. import database file path
+    database/sipay_archive.sql
+
+2. .env files setup
+
+2. created these folders and files for all 4 panels, and set 777 permission:
+	storage > app
+	storage > app > public
+	storage > framework
+	storage > framework > cache
+	storage > framework > sessions
+	storage > framework > testing
+	storage > framework > views
+	storage > logs
+	public > files
+	public > files > .htaccess
+	public > files > .htpasswd
+	public > files > otp.txt
+
+3. Run the following cmd:
+	php74 artisan config:cache

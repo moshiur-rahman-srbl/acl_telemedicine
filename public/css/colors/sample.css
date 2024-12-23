@@ -1,0 +1,77 @@
+:root {
+    --admin_primary-txt_custom-color: #1196b2;
+    --admin_primary-txt_custom-color_hover: #0d7565;
+    --admin_primary-btn_custom-color: #11a08c;
+    --admin_primary-btn_custom-color_hover: #15ab93;
+    --admin_primary-btn_custom-color_disabled: #5b6967;
+    --admin_primary-btn_login_custom-color: #0e9682;
+    --admin_primary-btn_login_custom-color_hover: #3c6e67;
+    --admin_pagination_custom-color: #11927f;
+    --admin_secondary-btn_custom-color: #17b79f;
+}
+
+.menu_icon-color,
+.single_notification img[alt="icon"] {
+    /* This should have the same shade as --admin_primary-txt_custom-color */
+    filter: invert(45%) sepia(84%) saturate(7317%) hue-rotate(164deg) brightness(96%) contrast(87%);
+}
+
+/* Overriding default styles */
+.ui-switch input:checked ~ span:after {
+    background-color: var(--admin_primary-btn_login_custom-color);
+}
+
+.text-primary {
+    color: var(--admin_primary-btn_login_custom-color) !important;
+}
+
+.border-primary {
+    border-color: var(--admin_primary-btn_login_custom-color) !important;
+}
+
+.border-info {
+    border-color: var(--admin_primary-txt_custom-color) !important;
+}
+
+.btn-primary,
+.list-group.list-group-bordered .list-group-item.active,
+.checkbox-primary input:checked ~ .input-span {
+    background-color: var(--admin_primary-btn_login_custom-color);
+    border-color: var(--admin_primary-btn_login_custom-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--admin_primary-btn_login_custom-color_hover);
+    border-color: var(--admin_primary-btn_login_custom-color_hover);
+}
+
+.btn-primary.focus,
+.btn-primary:focus {
+    background-color: var(--admin_primary-btn_custom-color_hover);
+    border-color: var(--admin_primary-btn_custom-color_hover);
+}
+
+.btn-primary.disabled,
+.btn-primary:disabled {
+    background-color:var(--admin_primary-btn_custom-color_disabled);
+    border-color: var(--admin_primary-btn_custom-color_disabled);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: var(--admin_primary-btn_custom-color_hover);
+    border-color: var(--admin_primary-btn_custom-color_hover);
+}
+
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+    color: var(--admin_primary-btn_custom-color_disabled);
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-primary.dropdown-toggle {
+    background-color: var(--admin_primary-btn_custom-color);
+    border-color: var(--admin_primary-btn_custom-color);
+}

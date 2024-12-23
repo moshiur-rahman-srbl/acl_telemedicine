@@ -1,0 +1,1 @@
+<script src="{{asset('adminca')}}/assets/vendors/dataTables/datatables.min.js"></script>

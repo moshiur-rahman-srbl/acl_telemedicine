@@ -1,0 +1,1 @@
+The password you need to use to continue the profile update: {{$data['OTP']}}.

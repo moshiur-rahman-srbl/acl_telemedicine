@@ -1,0 +1,1 @@
+<script src="{{asset('adminca')}}/assets/vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>

@@ -1,0 +1,13 @@
+:root {
+    --admin_primary-txt_custom-color: #03a9f5;
+    --admin_primary-txt_custom-color_hover: #6820d5;
+    --admin_primary-btn_custom-color: #1e55f7;
+    --admin_primary-btn_custom-color_hover: #1e55f7;
+    --admin_primary-btn_login_custom-color: #5c6bc0;
+    --admin_pagination_custom-color: #03a9f5;
+    --admin_secondary-btn_custom-color: #46aee2;
+}
+
+.menu_icon-color {
+    filter: invert(49%) sepia(84%) saturate(3719%) hue-rotate(172deg) brightness(107%) contrast(97%);
+}

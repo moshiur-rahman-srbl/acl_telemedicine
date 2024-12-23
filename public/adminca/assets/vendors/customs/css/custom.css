@@ -1,0 +1,14 @@
+.input-group-addon{
+    background: gray;
+    padding: 10px;
+    color: white;
+}
+.client_secret_gen_button{
+    margin-top: 28px;
+    font-size: 13px;
+    padding:10px;
+}
+.spinner-border{
+    float: left;
+    margin-right: 3px;
+}

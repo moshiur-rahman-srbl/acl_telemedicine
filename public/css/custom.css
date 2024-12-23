@@ -1,0 +1,353 @@
+.box-title {
+    padding: 20px;
+}
+
+.box-title h2 {
+    margin: 0;
+}
+
+.brand img {
+    width: 70%;
+}
+
+.content-wrapper {
+    min-height: 100vh;
+}
+
+.ibox-title {
+    width: 100%;
+}
+
+.red-text {
+    color: red !important;
+    font-weight: bold;
+}
+
+.custom-logo {
+    height: 100px;
+    width: 100px;
+}
+
+.alert-success {
+    background-color: #40ce1d;
+    border-color: #38ce2f;
+    color: #14a790;
+}
+
+.alert-info {
+    background-color: #4ccdd3;
+    border-color: #4ccdd3;
+    color: #25a7ad;
+}
+
+.alert-warning {
+    background-color: #f5ab36;
+    border-color: #f5ab36;
+    color: #cf850f;
+}
+
+.alert-danger {
+    background-color: #f82d20;
+    border-color: #f84d27;
+    color: #d24d51;
+}
+
+.sent_msg p {
+    background: #05728f none repeat scroll 0 0;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 0;
+    color: #fff;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+    text-align: right;
+}
+
+.received_withd_msg p {
+    background: #ebebeb none repeat scroll 0 0;
+    border-radius: 3px;
+    color: #646464;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 10px 5px 12px;
+    width: 100%;
+}
+
+div.hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+    text-align: center;
+    height: 0px;
+    line-height: 0px;
+}
+
+.hr-title {
+    background-color: #fff;
+}
+
+.alertify {
+    z-index: 99999 !important;
+}
+
+.custom-border-left-right {
+    border-right: 1px solid #ffffff !important;
+    border-left: 1px solid #ffffff !important;
+}
+
+.btn-primary-identification-customize{
+    background-color: #1E55F7; /* For IE */
+    background-color: var(--admin_primary-btn_custom-color, #1E55F7);
+    width: 35%!important;
+    border-color: #1E55F7; /* For IE */
+    border-color: var(--admin_primary-btn_custom-color, #1E55F7);
+    border-radius: 5px;
+    color: #ffffff !important;
+}
+
+.btn-secondary-identification-customize{
+    background-color: #A6B2C0;
+    width: 35%!important;
+    border-color: #A6B2C0;
+    border-radius: 5px;
+    color: #ffffff !important;
+}
+
+.btn-allocation-identification-customize{
+    background-color: #1e55f7;
+    width: 35%!important;
+    border-color: #1e55f7;
+    border-radius: 5px;
+    color: #ffffff !important;
+}
+
+.border-bottom-less{
+    border-bottom: none;
+}
+
+.custom-primary{
+    border-color: #6720D4;
+    border-radius: 5px;
+    color: #ffffff !important;
+    background-color: #6720D4;
+}
+
+.content-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.select-text-center{
+    text-align: center;
+    text-align-last: center;
+}
+.font13 {
+    font-size: 13px !important;
+}
+
+.custom-fa-right-angle-background{
+    background-color: #ECEDEF;
+    border-radius: 50%;
+    color: black;
+    padding: 3px 8px;
+    text-align: center;
+}
+
+.btn-approve{
+    background-color: #ddf2e3;
+    color: #25a848;
+}
+.btn-approve:hover{
+    background-color: #23a946;
+    color: #ffffff;
+}
+.btn-reject{
+    background-color: #fbe5e7;
+    color: #e65059;
+}
+.btn-reject:hover{
+    background-color: #e74f5b;
+    color: #ffffff;
+}
+.btn-skip{
+    background-color: #dee5ff;
+    color: #3462f6;
+}
+.btn-skip:hover{
+    background-color: #1e55f7; /* For IE */
+    background-color: var(--admin_primary-btn_custom-color, #1E55F7);
+    color: #ffffff;
+}
+.active-select{
+    background: #23a946;
+    color: #fff;
+}
+
+.chat_box {
+    width:100%;
+    float:left;
+}
+.chat1 {
+    width: 100%;
+    float: left;
+    position: relative;
+    padding-left: 50px;
+    margin:15px 0;
+}
+.chat1 .user-icon {
+    position:absolute;
+    left:0;
+    top:0;
+}
+.chat1 .user-icon img {
+    height:40px;
+}
+.user-comment {
+    max-width: 500px;
+    background: #f2f2f2;
+    float:left;
+    padding: 10px;
+    border-radius: 5px;
+}
+.chat2 {
+    width:100%;
+    float:left;
+    margin:15px 0;
+}
+.chat2 .user-comment {
+    float:right;
+    background:#03a9f5;
+    color:#ffffff;
+}
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid\9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent
+}
+.btn .caret {
+    margin-left: 0
+}
+.status-active {
+    color:#1e55f7; /* For IE */
+    color: var(--admin_primary-btn_custom-color, #1E55F7);
+}
+.divider{
+    border-top:1px solid #eee;
+}
+.ui-switch.switch-icon input:checked~span:after {
+    font-weight: 900;
+}
+.ui-switch input:checked~span:after {
+    background-color: #1e55f7; /* For IE */
+    background-color: var(--admin_primary-btn_custom-color, #1E55F7);
+}
+
+.custom-btn-padding{
+    padding: .65rem 1.25rem !important;
+}
+
+.main-menu>img{
+    padding: 0 !important;
+    margin: -5px 10px 0 0 !important;
+    height: 30px !important;
+    width: auto;
+}
+
+.intl-tel-input{
+    display:block;
+}
+
+.new-blue {
+    color: #03a9f5; /* For IE */
+    color: var(--admin_primary-txt_custom-color, #03a9f5);
+}
+
+.markAllNotification {
+    font-size: 16px;
+}
+
+button.btn.dropdown-toggle.bs-placeholder.btn-default, button.btn.dropdown-toggle.btn-default {
+    height: 35px !important;
+    padding: 0 20px !important;
+}
+
+/* Dashboard Custom Style start*/
+.side-menu .nav-2-level>li>a, .side-menu li .nav-label {
+    word-break: normal !important;
+    white-space: normal !important;
+}
+/* Dashboard Custom Style end*/
+
+/* Custom Utility Classes*/
+.btn-std-padding {
+    padding: 5px 15px !important;
+}
+
+/*responsive for Export Report History*/
+@media only screen and (max-width: 1247px) {
+    .export-btn{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1097px) {
+    .export-btn{
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    .export-td{
+        width:110px;
+    }
+}
+
+/*Responsive css for mobile*/
+@media only screen and (max-width: 768px) {
+    .scrollable-sm {
+        overflow-x: scroll !important;
+    }
+    .force-center-sm{
+        margin: 0 auto;
+        width: fit-content;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .pull-right-md {
+        float: right !important;
+    }
+}
+
+
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    display: none;
+}
+
+*:hover ::-webkit-scrollbar {
+    display: block;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #aaaaaa;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: grey;
+}

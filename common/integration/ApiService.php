@@ -1,0 +1,511 @@
+<?php
+
+
+namespace common\integration;
+
+class ApiService{
+
+    // RESOURCE INSTANCE
+    const SUBMERCHANT_INSTANCE = 'SUBMERCHANT_INSTANCE';
+    const USER_INSTANCE = 'USER_INSTANCE';
+
+    //pnr_code number length
+    const API_SERVICE_PNR_CODE_LENGTH = 10;
+
+    const PENDING_PAYMENT_STATUS_CODE = 69;
+    const API_SERVICE_SUCCESS_CODE = 100;
+    const API_SERVICE_FAILED_CODE = 422;
+    const API_SERVICE_UNAUTHENTICATED = 401;
+    const API_SERVICE_DB_COMMIT_ROLLBACK = 150;
+
+
+    //'REQUEST': PREFIX [E-10], 'http_code' = 400
+    const API_SERVICE_DEFAULT_VALIDATION_ERROR = 1001;
+    const API_SERVICE_IP_VALIDATION_ERROR= 1002;
+    const API_SERVICE_HASHKEY_VALIDATION_ERROR= 1003;
+    const API_SERVICE_CURRENCY_NOT_SUPPORTED = 1004;
+    const API_SERVICE_ITEM_TOTAL_MISMATCH = 1005;
+   const API_SERVICE_NAME_MISMATCH_WITH_HASH_KEY = 1006;
+   const API_SERVICE_SURNAME_MISMATCH_WITH_HASH_KEY = 1007;
+   const API_SERVICE_BIRTH_YEAR_MISMATCH_WITH_HASH_KEY = 1008;
+   const API_SERVICE_IP_ADDRESS_MISMATCH_WITH_HASH_KEY = 1009;
+   const API_SERVICE_HASH_KEY_MISMATCH = 1010;
+   const API_SERVICE_KYC_INVALID_USER = 1011;
+   const API_SERVICE_INVALID_CHARACTER_IN_REQUEST = 1012;
+   const API_SERVICE_DUPLICATE_REQUEST_ERROR = 1013;
+    const API_SERVICE_JWT_VERIFICATION_ERROR = 1014;
+    const API_SERVICE_ITEMS_CAN_NOT_BE_EMPTY = 1015;
+
+    CONST API_SERVICE_OXIVO_AUTH_FAILED = 1015; // OXIVO AUTH FAILED
+    CONST API_SERVICE_OXIVO_API_ERROR = 1016; // OXIVO AUTH FAILED
+
+    CONST API_SERVICE_PAVO_AUTH_FAILED = 1017; // PAVO AUTH FAILED
+    CONST API_SERVICE_PAVO_API_ERROR = 1018; // PAVO AUTH FAILED
+
+    CONST API_SERVICE_NOT_PAVO_MERCHANT = 1019; // MERCHANT TYPE IS NOT PAVO
+    CONST API_SERVICE_NOT_OXIVO_MERCHANT = 1020; // MERCHANT TYPE IS NOT OXIVO
+
+    const API_SERVICE_ALREADY_CREATED = 1021; // ALREADY CREATED
+    const API_SERVICE_NO_DATA_FOUND = 1022; // No data found
+
+    CONST API_SERVICE_PAVO_UNCOUNTED_TRANSACTION = 1023; // PAVO UNCOUNTED
+    CONST API_SERVICE_PAVO_TRANSACTION_REFUND_FAILED = 1024; // PAVO Refund Failed
+    
+    CONST API_SERVICE_OXIVO_UNCOUNTED_TRANSACTION = 1025; // OXIVO UNCOUNTED
+    CONST API_SERVICE_FP_MT_FILE_ALREADY_EXISTS = 1026; // FP MT FILE ALREADY EXISTS
+    CONST API_SERVICE_NOT_FP_MT_MERCHANT = 1027; // MERCHANT TYPE IS NOT FP_MT
+    CONST API_SERVICE_FP_MT_FILE_ALREADY_PROCESSED = 1028; // FP MT FILE ALREADY PROCESSED
+    CONST API_SERVICE_FP_MT_FILE_NOT_EXISTS = 1029; // FP MT FILE NOT EXISTS
+
+    CONST API_SERVICE_GOOGLE_RECAPTCHA_VALIDATION_FAILED = 1030; // google recaptcha validation failed
+
+    CONST API_SERVICE_FP_MT_TRANSACTION_REFUND_FAILED = 1031; // FP MT Refund Failed
+
+    CONST API_SERVICE_IMPORTED_TRANSACTION_NOT_FOUND = 1032; // Imported Transaction Not Found
+    CONST API_SERVICE_WITHDRAWAL_FILE_ALREADY_EXISTS = 1033; // WITHDRAWAL FILE ALREADY EXISTS
+    CONST API_SERVICE_WITHDRAWAL_FILE_ALREADY_PROCESSED = 1034; // WITHDRAWAL FILE ALREADY PROCESSED
+
+    CONST API_SERVICE_PHYSICAL_POS_SETTINGS_NOT_FOUND = 1035;
+    const API_SERVICE_IMPORTED_REFUND_INVALID_STATUS = 1038;
+	
+
+	/*
+	 * SIM CARD
+	 */
+	
+	const SIM_CARD_BLOCKED = 1036;
+	
+	/*
+	 * OTP RATE LIMIT
+	 */
+	CONST API_SERVICE_OTP_RATE_LIMIT_TIME = 1037;
+	
+    const CASH_IN_OUT_API_SERVICE_EXCEPTION = 1040;
+    const CASH_IN_OUT_API_SERVICE_INVALID_CREDENTIALS = 1041;
+    const CASH_IN_API_SERVICE_NOT_ALLOWED = 1042;
+    const CASH_OUT_API_SERVICE_NOT_ALLOWED = 1043;
+    const CASH_OUT_API_SERVICE_INVALID_TOKEN = 1044;
+    const API_SERVICE_MERCHANT_MCC_IS_NOT_ALLOWED = 1045;
+
+	/*
+	 * USER CATEGORY UPDATE
+	 */
+	const API_WALLET_USER_CATEGORY_UPDATE_SUCCESSFULLY = 1050;
+
+
+    //'IDENTIFICATION': PREFIX [E-20], 'http_code' = 200
+
+    const API_SERVICE_USER_NOT_FOUND = 2001;
+    const API_SERVICE_MERCHANT_NOT_FOUND = 2002;
+    const API_SERVICE_SUB_MERCHANT_NOT_FOUND = 2003;
+    const API_SERVICE_RECEIVER_NOT_FOUND = 2004;
+    const API_SERVICE_WALLET_NOT_FOUND = 2005;
+    const API_SERVICE_CURRENCY_NOT_FOUND = 2006;
+    const API_SERVICE_CURRENCY_SETTING_NOT_SET = 2007;
+    const API_SERVICE_WALLET_SERVICE_DISABLE= 2008;
+    const API_SERVICE_WALLET_ALREADY_EXISTS = 2009;
+    const API_SERVICE_WALLET_AMOUNT_DELETE_REFUSE = 2010;
+    const API_SERVICE_INSUFFICIENT_BALANCE = 2011;
+    const API_SERVICE_WALLET_NOT_UPDATED = 2012;
+    const API_SERVICE_RECEIVER_WALLET_NOT_FOUND = 2013;
+    const API_SERVICE_PHONE_NUMBER_ALREADY_EXIST = 2014;
+    const API_SERVICE_EMAIL_ALREADY_EXIST = 2015;
+    const API_SERVICE_SUB_MERCHANT_ALREADY_EXIST = 2016;
+    const API_SERVICE_SUB_MERCHANT_CANT_BE_DELETED = 2017;
+    const API_SERVICE_MERCHANT_KEY_IDENTIFICATION_ERROR = 2018;
+    const API_SERVICE_USER_WITH_EMAIL_ALREADY_EXIST = 2019;
+    const API_SERVICE_USER_WITH_PHONE_ALREADY_EXIST = 2020;
+    const API_SERVICE_USER_WITH_TERMINAL_NO_ALREADY_EXIST = 2021;
+    const API_SERVICE_SUB_MERCHANT_ID_FORAMT = 2022;
+    const API_SERVICE_WALLET_NOT_FOUND_FOR_THIS_CURRENCY = 2023;
+    const API_SERVICE_POS_NOT_SET = 2024;
+    const API_SERVICE_MERCHANT_AUTHORIZATION_ERROR = 2025;
+    const API_SERVICE_TRANSACTION_NOT_FOUND = 2026;
+    const API_SERVICE_MERCHANT_TERMINAL_NOT_FOUND = 2027;
+    const API_SERVICE_MERCHANT_APPLICATION_NOT_ASSIGNED = 2028;
+    const API_SERVICE_MERCHANT_APPLICATION_REQUEST_PENDING = 2029;
+    const API_SERVICE_MERCHANT_APPLICATION_IS_NOT_PENDING = 2030;
+    const API_SERVICE_MERCHANT_APPLICATION_ALREADY_ASSIGNED = 2031;
+    const API_SERVICE_MERCHANT_APPLICATION_NOT_FOUND = 2032;
+    const API_SERVICE_MERCHANT_APPLICATION_ASSIGN_IS_NOT_PENDING = 2033;
+    const API_SERVICE_MERCHANT_APPLICATION_USER_FAIL_ATTEMPTS_REACHED = 2034;
+    const API_SERVICE_STATISTICAL_DATA_NOT_FOUND = 2035;
+    const API_SERVICE_BRAND_NOT_ALLOWED = 2036;
+    const API_USER_BLOCKED = 2037;
+    const API_SERVICE_MERCHANT_IS_INACTIVE = 2038;
+    const API_SERVICE_MERCHANT_IS_BLOCKED = 2039;
+    const API_SERVICE_SETTLEMENT_NOT_FOUND = 2040;
+    const API_ALREADY_HAS_PENDING_PROCESS = 2041;
+    const API_SERVICE_MERCHANT_DUPLICATE_IMPORTED_TRANSACTION_FOUND = 2042;
+    const API_SERVICE_TRANSACTION_NOT_ALLOWED = 2043;
+    const API_SERVICE_NON_BRAND_RECEIVER_WALLET_TRY = 2044;
+    const API_SERVICE_RECEIVER_CURRENCY_SETTING_NOT_SET = 2045;
+    const API_SERVICE_INVALID_TRANSACTION_STATE = 2046;
+
+    const API_SERVICE_POS_PROGRAMS_INSERT_FAILED= 2047;
+    const API_SERVICE_POS_PROGRAMS_UPDATE_FAILED= 2048;
+    const API_SERVICE_MERCHANT_PANEL_RESTRICTION_SUB_DEALER = 2049;
+    const API_SERVICE_MAX_LIMIT_EXCEED_AFTER_CALCULATION = 2050;
+
+    const API_SERVICE_INVALID_PACKAGE_DESTROY = 4040;
+
+
+
+
+    ///'SALE' : 'PREFIX [E-30]','http_code' = 200
+    const API_SERVICE_SALE_NOT_FOUND = 3001;
+    const API_SERVICE_MERCHANT_POS_COMMISSION_NOT_FOUND = 3002;
+    const API_SERVICE_POS_NOT_FOUND = 3003;
+    const API_SERVICE_SALE_BANK_NOT_FOUND = 3004;
+    const API_SERVICE_SALE_INVOICE_ID_ALREADY_PROCESSED = 3005;
+    const API_SERVICE_SALE_INVOICE_ID_IN_PROGRESS_STATE = 3006;
+    const API_SERVICE_TEMPORARY_PAYMENT_RECORD_MANAGEMENT_FAIL = 3007;
+    const API_SERVICE_PAYMENT_FAILED = 3008;
+    const API_SERVICE_FASTPAY_WALLET_SERVICE_AUTH_TOKEN_NOT_FOUND = 3009;
+    const API_SERVICE_CARD_FROM_THE_CARD_TOKEN_PROVIDER_NOT_FOUND = 3010;
+    const API_SERVICE_MERCHANT_COMMISSION_IS_NOT_SET = 3011;
+    const API_SERVICE_MERCHANT_OXIVO_COMMISSION_IS_NOT_ENABLED = 3012;
+    const API_SERVICE_CACHE_DATA_NOT_FOUND_WITH_KEY_REFERENCE = 3013;
+    const API_SERVICE_INVALID_QR_REFERENCE_CODE = 3014;
+    const API_SERVICE_FASTPAY_WALLET_SERVICE_ERROR_RESPONSE = 3015;
+    const API_SERVICE_FASTPAY_WALLET_SERVICE_UNDEFINED_PAYMENT_SECURITY_TYPE = 3016;
+    const API_SERVICE_3D_SECURE_PAYMENT_FORM_NOT_FOUND = 3017;
+    const API_SERVICE_SALE_SECURE_FORM_SUBMISSION_INVALID_URL_FORMAT = 3018;
+    const API_SERVICE_CARD_TOKEN_PROVIDER_BANK_NOT_FOUND = 3019;
+    const API_SERVICE_PAYMENT_GATEWAY_ERROR = 3020;
+    const API_SERVICE_DUPLICATE_OXIVO_TRANSACTION_ERROR = 3021;
+    const API_SERVICE_SALE_COMMISSION_NOT_SET = 3022;
+    const API_SERVICE_SALE_COMMISSION_IS_GREATER_THAN_TOTAL_AMOUNT = 3023;
+    const API_SERVICE_SALE_TRANSACTION_CAUGHT_FOR_FRAUD = 3024;
+    const API_SERVICE_SALE_INVALID_TRANSACTION_STATE = 3025;
+    const API_SERVICE_SALE_EMPTY_FASTPAY_WALLET_TRANSACTION_ID = 3026;
+    const API_SERVICE_SALE_EMPTY_FASTPAY_WALLET_TRANSACTION_ENTITY = 3027;
+    const API_SERVICE_CARD_TOKEN_NOT_FOUND = 3028;
+    const API_SERVICE_SALE_NET_AMOUNT_LESS_OR_EQUAL_TO_ZERO = 3029;
+    const API_SERVICE_DUPLICATE_PAVO_TRANSACTION_ERROR = 3030;
+    const API_SERVICE_DUPLICATE_FP_MT_TRANSACTION_ERROR = 3031;
+    const API_SERVICE_DUPLICATE_FP_MT_REFUND_PHYSIAL_POS_ERROR = 3032;
+    const API_SERVICE_DUPLICATE_FP_MT_NOT_ACCEPTING_TRANSACTION = 3033;
+    const API_SERVICE_DUPLICATE_IMPORTED_WITHDRAWAL_ERROR = 3034;
+    const API_SERVICE_IMPORTED_WITHDRAWAL_GOT_EXCEPTION = 3035;
+    const API_SERVICE_IMPORTED_WITHDRAWAL_BANK_NOT_FOUND = 3036;
+    const API_SERVICE_IMPORTED_WITHDRAWAL_STATE_NOT_ACCEPTABLE = 3037;
+    const API_SALE_TIMED_OUT_RESPONSE = 3038;
+    const API_SERVICE_IMPORTED_TRANSACTION_GOT_EXCEPTION = 3039;
+    const API_SERVICE_IMPORTED_TRANSACTION_TERMINAL_NOT_MATCHED = 3040;
+    const SALE_MERCHANT_PRODUCT_PRICE_REQUIRED = 3041;
+    const SALE_MERCHANT_PRODUCT_PRICE_CAN_NOT_BE_ZERO = 3042;
+    const API_SERVICE_DUPLICATE_VERIFONE_TRANSACTION_ERROR = 3043;
+    CONST API_SERVICE_VERIFONE_AUTH_FAILED = 3044; // VERIFONE AUTH FAILED
+    CONST API_SERVICE_VERIFONE_API_ERROR = 3045; // VERIFONE AUTH FAILED
+    const API_SERVICE_MERCHANT_PHYSICAL_POS_NOT_ALLOWED = 3046;
+    const API_SERVICE_DPL_PAYMENT_ERROR = 3047;
+
+
+    //'REFUND' : 'PREFIX [E-40]',  'http_code' = 200
+    const API_SERVICE_NON_REFUNDABLE_TRANSACTION_STATE = 4001;
+    const API_SERVICE_REFUND_REQUEST_AMOUNT_EXCEEDS_THE_INVOICE_TOTAL = 4002;
+    const API_SERVICE_REFUND_GRACE_PERIOD_INPUT_AMOUNT_ERROR = 4003;
+    const API_SERVICE_REFUND_WALLET_INSUFFICIENT_BALANCE = 4004;
+    const API_SERVICE_DUPLICATE_REFUND_REFERENCE_ID = 4005;
+    const API_SERVICE_REFUND_PAYMENT_TYPE_IS_NOT_IN_PAYMENT_RECEIVE_OPTIONS = 4006;
+    const API_SERVICE_REFUND_PURCHASE_ID_IS_ABSENT_FOR_REFUND_TO_BRAND_WALLET = 4007;
+    const API_SERVICE_REFUND_FAILED = 4008;
+    const API_SERVICE_REFUND_AWAITING = 4009;
+    const API_SERVICE_REFUND_FAILED_SALE_HAVE_NOT_BEEN_PROCESSED = 4010;
+    const API_SERVICE_REFUND_REMAIN_AMOUNT_INVALID = 4011;
+    const API_SERVICE_REFUND_ALREADY_IN_PROGRESS = 4012;
+    const API_SERVICE_REFUND_CAN_NOT_PROGRESS_GREATER_THEN_ONE_YEAR = 4013;
+    const API_SERVICE_REFUND_CAN_NOT_PROGRESS_FOR_PHYSICAL_POS_TRANSACTION = 4014;
+    const API_SERVICE_REFUND_IS_NOT_ALLOW_BANK = 4015;
+    const API_SERVICE_REFUND_IS_NOT_PROCESSABLE_ATM = 4016;
+
+    const API_SERVICE_REFUND_FAILED_SALE_HAVE_NOT_BEEN_PROCESSED_OLD = 114;
+    const API_SERVICE_REFUND_BLOCKED_DURING_SETTLEMENT_WITHDRAWAL_PROCESS = 4049;
+
+
+    //'MONEY TRANSFER' : PREFIX [E-50], 'http_code' = 200
+
+    const API_SERVICE_MERCHANT_B2C_COMMISSION_NOT_SET = 5001;
+    const API_SERVICE_CANNOT_SEND_MONEY_YOURSELF = 5002;
+    const API_SERVICE_TRANSACTION_DATA_INSERT_FAILED = 5003;
+    const API_SERVICE_AMOUNT_SHOULD_BE_GREATER = 5004;
+    const API_SERVICE_AMOUNT_CANNOT_BE_LESS = 5005;
+    const API_SERVICE_PERMISSION_AND_AMOUNT_CANNOT_BE_LESS = 5006;
+    const API_SERVICE_BANK_NOT_FOUND = 5007;
+    const API_SERVICE_COMMISON_FEE_IS_GREATER_THAN_SEND_MONEY = 5004;
+    const API_SERVICE_USER_SEND_MONEY_LIMIT_EXCEED = 5005;
+    const API_SERVICE_SEND_MONEY_SUCCESS_CREATE_ACCOUNT_WITHIN_24_HOURS = 5008;
+    const API_SERVICE_SEND_MONEY_SUCCESS_CREATE_ACCOUNT_WITHIN_72_HOURS = 5009;
+    const API_SERVICE_B2C_REQUEST_CREATED_CASHOUT_SERVER_EXCEPTION = 5010;
+    const API_SERVICE_COMMISSION_FEE_IS_GREATER_THAN_SEND_MONEY = 5011;
+    const API_SERVICE_RECEIVER_ACCEPT_MONEY_LIMIT_EXCEED = 5012;
+    const API_SERVICE_USER_MAX_SEND_MONEY_LIMIT_EXCEED = 5013;
+    const API_SERVICE_CASHOUT_DATA_INSERTION_FAILED = 5014;
+    const API_SERVICE_RECIPENT_ACCOUNT_BAN_FROM_THE_SYSTEM = 5015;
+    const API_SERVICE_RECIPENT_ACCOUNT_UNDER_REVIEW = 5016;
+    const API_SERVICE_USER_MAX_RECEIVE_MONEY_LIMIT_EXCEED = 5017;
+    const API_SERVICE_MERCHANT_COMMISSION_NOT_SET_FOR_WALLET_PAYMENT = 5018;
+    const API_SERVICE_TRANSACTION_WILL_BE_CREATED_AFTER_PRELIMINARY_REVIEW = 5019;
+    const API_SERVICE_SENDER_TOTAL_MONEY_TRANSFER_MAX_LIMIT_TRANSACTIONS = 5020;
+    const API_SERVICE_RECEIVER_TOTAL_MONEY_TRANSFER_MAX_LIMIT_TRANSACTIONS = 5021;
+    const API_SERVICE_MERCHANT_B2B_COMMISSION_NOT_SET = 5022;
+    const API_SERVICE_MONTHLY_MERCHANT_B2B_COMMISSION_NOT_SET = 5023;
+    const API_SERVICE_DAILY_LIMIT_EXCEEDED = 5025;
+    const API_SERVICE_WEEKLY_LIMIT_EXCEEDED = 5026;
+    const API_SERVICE_MONTHLY_LIMIT_EXCEEDED = 5027;
+
+    const API_SERVICE_MERCHANT_B2B_AND_B2C_BLOCKED_DURING_SETTLEMENT_WITHDRAWAL_PROCESS = 49;
+    const API_SERVICE_MERCHANT_B2B_MIN_AMOUNT_MUST_BE_GREATER_THEN_ZERO = 5024;
+
+
+    //'Deposit : PREFIX [E-60], 'http_code' = 200
+    const API_SERVICE_DEPOSIT_NOT_FOUND = 6001;
+    const API_SERVICE_DEPOSIT_REQUEST_UNDER_REVIEW = 6010;
+    const API_SERVICE_DEPOSIT_CREATION_FAILED = 6011;
+    const API_SERVICE_DEPOSIT_AMOUNT_CAN_NOT_EMPTY = 6012;
+    const API_SERVICE_DEPOSIT_PENDING_DEPOSITS = 6013;
+    const API_SERVICE_DEPOSIT_CURRENCY_NOT_SET = 6014;
+    const API_SERVICE_DEPOSIT_CAN_NOT_UPDATE = 6015;
+    const API_SERVICE_DEPOSIT_AMOUNT_LIMIT_EXCEED = 6016;
+    const API_SERVICE_DEPOSIT_CAN_NOT_DELETE = 6017;
+    const API_SERVICE_DEPOSIT_DELETION_FAILED = 6050;
+    const API_SERVICE_DEPOSIT_KYC_ZERO_NOT_ALLOWED = 6051;
+
+    
+
+    //'WITHDRAWAL' : 'PREFIX [E-70]',  'http_code' = 200
+    const API_SERVICE_WITHDRAWAL_COMMISSION_NOT_SET = 7001;
+    const API_SERVICE_LESS_THAN_MIN_WITHDRAWAL_AMOUNT = 7002;
+    const API_SERVICE_WITHDRAWAL_REQUEST_UNDER_REVIEW = 7003;
+    const API_SERVICE_WITHDRAWAL_REQUESTED_CASHOUT_SERVER_EXP = 7004;
+    const API_SERVICE_MAX_WITHDRAWAL_LIMIT_EXCEED = 7005;
+    const API_SERVICE_WITHDRAWAL_NOT_PERSONAL_BANK_ACC = 7006;
+    const API_SERVICE_WITHDRAWAL_NO_BANK_FOR_IBAN = 7007;
+    const API_SERVICE_WITHDRAWAL_NO_BANK_FOR_ACCOUNT = 7008;
+    const API_SERVICE_WITHDRAWAL_APPROVAL_FAILED = 7010;
+
+    //'Transaction : PREFIX [E-80], 'http_code' = 200
+
+    //'GENERAL' : PREFIX [E-90], 'http_code' = 200
+    const API_SERVICE_UNKNOWN_ERROR = 9000;
+    const API_SERVICE_DATABASE_ERROR = 9001;
+    const API_SERVICE_DATABASE_ERROR_FROM_REFUND_REQUEST = 9002;
+    const API_SERVICE_UNEXPECTED_RESPONSE_ERROR = 9003;
+    const API_SERVICE_OXIVO_TRANSACTION_FAILED_TO_SAVE = 9004;
+    const API_SERVICE_SALE_DATABASE_ERROR = 9005;
+    const API_SERVICE_ACTIVE_AML_DETECTED = 9010;
+    const API_SERVICE_ACTIVE_AND_APPROVE_AML_DETECTED = 9011;
+    const API_SERVICE_DIGITAL_CONTRACT_NOT_AGREED_YET = 9012;
+
+
+    // ===== BTrans ====
+    const API_SERVICE_FTP_CONNECTION_FAILED = 8000;
+    const API_SERVICE_FAILED_TO_UPLOAD_BTRANS_REPORT = 8001;
+
+    const API_SERVICE_REFUND_PAYMENT_FAILED = 41;
+
+    const API_SERVICE_AML_VIOLATED = 10;
+
+    // === walletgate ===
+
+    const API_SERVICE_WALLETGATE_WITHDRAWAL_REJECT = 9013;
+  
+    // Status description message
+    const API_SERVICE_STATUS_MESSAGE = [
+
+        self::API_SERVICE_SUCCESS_CODE => "Successful",
+        self::API_SERVICE_FAILED_CODE => "Failed",
+        self::API_SERVICE_NO_DATA_FOUND => "No data found",
+        self::API_SERVICE_UNKNOWN_ERROR => "Unknown error",
+        //'REQUEST': PREFIX [E-10], 'http_code' = 400
+        self::API_SERVICE_IP_VALIDATION_ERROR=> "This ip is not allowed",
+        self::API_SERVICE_HASHKEY_VALIDATION_ERROR=> "Invalid Request",
+        self::API_SERVICE_DEFAULT_VALIDATION_ERROR => "Validation Error",
+        self::API_SERVICE_CURRENCY_NOT_SUPPORTED =>  "",
+
+        //'IDENTIFICATION': PREFIX [E-20], 'http_code' = 200
+
+        self::API_SERVICE_USER_NOT_FOUND =>  "User not found",
+        self::API_SERVICE_MERCHANT_NOT_FOUND =>  "Merchant not found",
+        self::API_SERVICE_WALLET_NOT_FOUND =>  "Wallet not found",
+        self::API_SERVICE_WALLET_NOT_FOUND_FOR_THIS_CURRENCY =>  "Wallet not found for this currency",
+        self::API_SERVICE_MERCHANT_B2B_AND_B2C_BLOCKED_DURING_SETTLEMENT_WITHDRAWAL_PROCESS =>  "You can’t make :transactionType transfer during settlement process. Please try again when it is finished.",
+        self::API_SERVICE_CURRENCY_NOT_FOUND =>  "Currency not found",
+        self::API_SERVICE_CURRENCY_SETTING_NOT_SET =>  "Currency setting is not set",
+        self::API_SERVICE_WALLET_SERVICE_DISABLE => "Wallet service is disable. Please contact with support.",
+        self::API_SERVICE_INSUFFICIENT_BALANCE => 'Insufficient balance',
+        self::API_SERVICE_SUB_MERCHANT_NOT_FOUND =>  "Submerchant not found",
+        self::API_SERVICE_RECEIVER_NOT_FOUND =>  "Receiver not found",
+        self::API_SERVICE_RECEIVER_WALLET_NOT_FOUND =>  "Receiver wallet not found",
+        self::API_SERVICE_TRANSACTION_NOT_ALLOWED =>  "Transaction is not allowed",
+        self::API_SERVICE_NON_BRAND_RECEIVER_WALLET_TRY =>  "You can only send TRY for Non :company User.",
+        self::API_SERVICE_RECEIVER_CURRENCY_SETTING_NOT_SET =>  "Receiver currency setting is not set",
+        self::API_SERVICE_WALLET_ALREADY_EXISTS =>  "",
+        self::API_SERVICE_WALLET_AMOUNT_DELETE_REFUSE =>"Wallet Not Empty.",
+        self::API_SERVICE_WALLET_NOT_UPDATED =>  "Wallet not updated",
+        self::API_SERVICE_POS_NOT_SET =>  "You can't complete this process for this currency",
+        self::API_SERVICE_POS_NOT_FOUND =>  "POS not found",
+
+        self::API_SERVICE_NAME_MISMATCH_WITH_HASH_KEY => "Name mismatch with hash_key",
+        self::API_SERVICE_SURNAME_MISMATCH_WITH_HASH_KEY => "Surname mismatch with hash_key",
+        self::API_SERVICE_BIRTH_YEAR_MISMATCH_WITH_HASH_KEY => "Birth year mismatch with hash_key",
+        self::API_SERVICE_IP_ADDRESS_MISMATCH_WITH_HASH_KEY => "IP address mismatch with hash_key",
+        self::API_SERVICE_HASH_KEY_MISMATCH => "Hash key mismatch",
+        self::API_SERVICE_KYC_INVALID_USER => "KYC verification failed",
+        self::API_SERVICE_MERCHANT_KEY_IDENTIFICATION_ERROR => "Not A Valid Merchant Key",
+        self::API_SERVICE_USER_WITH_EMAIL_ALREADY_EXIST => 'User With Email Already Exists',
+        self::API_SERVICE_USER_WITH_PHONE_ALREADY_EXIST => 'User With Phone Already Exists',
+        self::API_SERVICE_USER_WITH_TERMINAL_NO_ALREADY_EXIST  => 'User With Terminal Number Already Exists',
+
+        //refund
+
+        self::API_SERVICE_NON_REFUNDABLE_TRANSACTION_STATE => 'Non refundable transaction state.',
+        self::API_SERVICE_REFUND_REQUEST_AMOUNT_EXCEEDS_THE_INVOICE_TOTAL => 'Input amount exceeds total transaction amount',
+        self::API_SERVICE_REFUND_GRACE_PERIOD_INPUT_AMOUNT_ERROR => 'Try Refund again after '.BankRefund::REFUND_GRACE_PERIOD.' seconds',
+        self::API_SERVICE_REFUND_WALLET_INSUFFICIENT_BALANCE => 'Insufficient balance for refund',
+        self::API_SERVICE_DUPLICATE_REFUND_REFERENCE_ID => 'Duplicate refund reference id.',
+        self::API_SERVICE_REFUND_PAYMENT_TYPE_IS_NOT_IN_PAYMENT_RECEIVE_OPTIONS => 'Payment type is not in payment received optionss for refund',
+        self::API_SERVICE_REFUND_PURCHASE_ID_IS_ABSENT_FOR_REFUND_TO_BRAND_WALLET => 'Purchase id is absent for refund to brand wallet.',
+        self::API_SERVICE_REFUND_CAN_NOT_PROGRESS_GREATER_THEN_ONE_YEAR => 'Refund is not allowed for this transaction.please contact Our team.',
+        self::API_SERVICE_REFUND_CAN_NOT_PROGRESS_FOR_PHYSICAL_POS_TRANSACTION => 'Physical pos transactions cannot be refunded from merchant panel. Please contact support or refund from physical pos.',
+        self::API_SERVICE_REFUND_IS_NOT_PROCESSABLE_ATM => 'Refund is not processable at the moment, please try after sometime.',
+        
+        self::API_SERVICE_REFUND_BLOCKED_DURING_SETTLEMENT_WITHDRAWAL_PROCESS => 'You can’t make :mainWord during settlement process. Please try again when it is finished.',
+        //'MONEY TRANSFER' : PREFIX [E-50], 'http_code' = 200
+        self::API_SERVICE_MERCHANT_B2C_COMMISSION_NOT_SET =>  "Commissions are not set yet. please contact support if this error persists !",
+        self::API_SERVICE_CANNOT_SEND_MONEY_YOURSELF =>  "You cannot send money to yourself",
+        self::API_SERVICE_TRANSACTION_DATA_INSERT_FAILED =>  "Transaction data insertion failed",
+        self::API_SERVICE_AMOUNT_SHOULD_BE_GREATER =>  "Amount should not be greater than <var1>",
+        self::API_SERVICE_AMOUNT_CANNOT_BE_LESS => "Amount can't be less than <var1>",
+        self::API_SERVICE_PERMISSION_AND_AMOUNT_CANNOT_BE_LESS =>  "You don't have permission . Amount can't be less than <var1>",
+        self::API_SERVICE_BANK_NOT_FOUND => "Bank not found",
+        self::API_SERVICE_SEND_MONEY_SUCCESS_CREATE_ACCOUNT_WITHIN_24_HOURS => "Your request to send money has been successfully received. Since the user is not verified, the money will be transferred to the <var1> wallet when he/she update Kyc information within 24 hours. If no action is taken, the money will be returned to your account after 24 hours.",
+        self::API_SERVICE_SEND_MONEY_SUCCESS_CREATE_ACCOUNT_WITHIN_72_HOURS => "Your request to send money has been successfully received. Since the user is not in the system, the money will be transferred to the <var1> wallet when he/she registers within 72 hours. If no action is taken, the money will be returned to your account after 72 hours.",
+        self::API_SERVICE_B2C_REQUEST_CREATED_CASHOUT_SERVER_EXCEPTION => "B2C request created but cashout server got exception",
+        self::API_SERVICE_COMMISSION_FEE_IS_GREATER_THAN_SEND_MONEY => "You can't send money because commission fee is greater than send amount",
+        self::API_SERVICE_RECEIVER_ACCEPT_MONEY_LIMIT_EXCEED => "Receiver can't receive that amount beacuse his amount limit will exceed",
+        self::API_SERVICE_USER_MAX_SEND_MONEY_LIMIT_EXCEED => "User max send money limit exceed",
+        self::API_SERVICE_CASHOUT_DATA_INSERTION_FAILED => "Cashout data Insertion failed",
+        self::API_SERVICE_RECIPENT_ACCOUNT_BAN_FROM_THE_SYSTEM => "This transaction cannot be performed due to the recipient account's ban from the system.",
+        self::API_SERVICE_RECIPENT_ACCOUNT_UNDER_REVIEW => "Your transaction cannot be performed at the moment because the recipient account is under review. Please try again later.",
+        self::API_SERVICE_USER_MAX_RECEIVE_MONEY_LIMIT_EXCEED => "User max receive money limit exceed",
+        self::API_SERVICE_MERCHANT_COMMISSION_NOT_SET_FOR_WALLET_PAYMENT => "Merchant Commissions are not set yet for wallet payment. please contact support if this error persists !",
+        self::API_SERVICE_TRANSACTION_WILL_BE_CREATED_AFTER_PRELIMINARY_REVIEW => "Your transaction will be completed after a preliminary review",
+        self::API_SERVICE_ACTIVE_AML_DETECTED => "AML transaction is detected",
+        self::API_SERVICE_ACTIVE_AND_APPROVE_AML_DETECTED => "AML transaction is detected",
+        self::API_SERVICE_SENDER_TOTAL_MONEY_TRANSFER_MAX_LIMIT_TRANSACTIONS => "User total money transfer max limit exceed",
+        self::API_SERVICE_RECEIVER_TOTAL_MONEY_TRANSFER_MAX_LIMIT_TRANSACTIONS => "Receiver total money transfer max limit exceed",
+        self::API_SERVICE_DAILY_LIMIT_EXCEEDED => "Daily limit of this user exceeded",
+        self::API_SERVICE_WEEKLY_LIMIT_EXCEEDED => "Weekly limit of this user exceeded",
+        self::API_SERVICE_MONTHLY_LIMIT_EXCEEDED => "Monthly limit of this user exceeded",
+
+        //Transaction
+        self::API_SERVICE_TRANSACTION_NOT_FOUND => "Transaction not found",
+        self::API_SERVICE_MERCHANT_IS_INACTIVE => "Merchant is inactive",
+
+        //Deposit
+        self::API_SERVICE_DEPOSIT_NOT_FOUND => "Deposit not found",
+        self::API_SERVICE_DEPOSIT_REQUEST_UNDER_REVIEW => "Your deposit request is under review",
+        self::API_SERVICE_DEPOSIT_CREATION_FAILED => "Deposit creation failed",
+        self::API_SERVICE_DEPOSIT_AMOUNT_CAN_NOT_EMPTY => "Deposit amount can't be empty",
+        self::API_SERVICE_DEPOSIT_PENDING_DEPOSITS => "You have pending deposits, you can't create now",
+        self::API_SERVICE_DEPOSIT_CURRENCY_NOT_SET => "Currency settings not set yet. please contact support if this error persists",
+        self::API_SERVICE_DEPOSIT_CAN_NOT_UPDATE => "You can't update this deposit",
+        self::API_SERVICE_DEPOSIT_AMOUNT_LIMIT_EXCEED => "You can't deposit that amount because your amount limit will exceed",
+        self::API_SERVICE_DEPOSIT_CAN_NOT_DELETE => "Deposit can't be deleted",
+        self::API_SERVICE_DEPOSIT_DELETION_FAILED => "Deposit deletion failed",
+        self::API_SERVICE_DEPOSIT_KYC_ZERO_NOT_ALLOWED => "You are not allowed to deposit, please contact support",
+
+        //'WITHDRAWAL' : PREFIX [E-30], 'http_code' = 200
+        self::API_SERVICE_WITHDRAWAL_NO_BANK_FOR_IBAN => "Bank not found for this iban",
+        self::API_SERVICE_WITHDRAWAL_NO_BANK_FOR_ACCOUNT => "Bank not found of this account",
+        self::API_SERVICE_WITHDRAWAL_COMMISSION_NOT_SET => "Withdrawal commission is not set",
+        self::API_SERVICE_LESS_THAN_MIN_WITHDRAWAL_AMOUNT => "Minimum withdrawal amount is <varX>",
+        self::API_SERVICE_WITHDRAWAL_REQUEST_UNDER_REVIEW => "Your withdrawal request is under review",
+        self::API_SERVICE_WITHDRAWAL_REQUESTED_CASHOUT_SERVER_EXP => "Withdrawal request created but cashout server got exception",
+        self::API_SERVICE_MAX_WITHDRAWAL_LIMIT_EXCEED => "User max withdrawal limit exceed",
+        self::API_SERVICE_WITHDRAWAL_NOT_PERSONAL_BANK_ACC => "You can only create a withdrawal request to your personal bank account",
+        self::API_SERVICE_SUB_MERCHANT_ID_FORAMT => "Invalid Sub Merchant ID",
+
+        self::API_SERVICE_GOOGLE_RECAPTCHA_VALIDATION_FAILED => "Sorry! Google recaptcha detected you as a bot.",
+        self::API_SALE_TIMED_OUT_RESPONSE => "Timed out response",
+	    
+	    self::SIM_CARD_BLOCKED => 'You should contact your SIM card provider in order to login.',
+
+        self::CASH_IN_OUT_API_SERVICE_EXCEPTION => 'Exception has occurred',
+        self::CASH_IN_OUT_API_SERVICE_INVALID_CREDENTIALS => 'Credentials not found',
+        self::CASH_IN_API_SERVICE_NOT_ALLOWED => 'Cash-In service not allowed',
+        self::CASH_OUT_API_SERVICE_NOT_ALLOWED => 'Cash-Out service not allowed',
+        self::CASH_OUT_API_SERVICE_INVALID_TOKEN => 'Cash-Out invalid token',
+        self::API_SERVICE_REFUND_PAYMENT_FAILED => "Refund Payment failed.",
+        self::API_SERVICE_INVALID_PACKAGE_DESTROY => "This package is assigned to one or more merchant.",
+	    self::API_SERVICE_OTP_RATE_LIMIT_TIME => "Please try after :time minutes.",
+
+        // Walletgate error message
+        self::API_SERVICE_WALLETGATE_WITHDRAWAL_REJECT => "Walletgate withdrawal rejected",
+        self::API_SERVICE_REFUND_CAN_NOT_PROGRESS_FOR_PHYSICAL_POS_TRANSACTION_OLD => "Refund Request Disabled for Physical Pos Transaction.",
+        self::API_SERVICE_IMPORTED_REFUND_INVALID_STATUS => "Refund Status invalid.",
+        self::API_SERVICE_MERCHANT_B2B_MIN_AMOUNT_MUST_BE_GREATER_THEN_ZERO => "The amount to be sent to the receiver must be greater than zero.",
+
+        self::API_SERVICE_MERCHANT_PHYSICAL_POS_NOT_ALLOWED => "Physical pos not allowed for this merchant.",
+        self::API_SERVICE_DUPLICATE_VERIFONE_TRANSACTION_ERROR => "Already have a transaction with this payment id",
+        self::API_SERVICE_MERCHANT_TERMINAL_NOT_FOUND => "Merchant terminal not found",
+
+        self::API_SERVICE_MAX_LIMIT_EXCEED_AFTER_CALCULATION => "Amount has exceeded maximum value limit after calculation",
+    ];
+
+
+    /*  ********* wallet service route ********** */
+
+    // Money transfer
+    const WALLET_SERVICE_TOPUP = 'walletservice.topup';
+
+    // CtoC -> Send Money
+    const WALLET_SERVICE_SENDMONEY = 'walletservice.sendmoney';
+    const WALLET_SERVICE_SENDMONEY_LIST = 'walletservice.moneytransfer.sendmoneylist';
+
+    // IDENTIFICATION
+    const WALLET_SERVICE_ADD_WALLET = 'walletservice.add.wallet';
+    const WALLET_SERVICE_DELETE_WALLET = 'walletservice.delete.wallet';
+    const WALLET_SERVICE_LIST_WALLET = 'walletservice.list.wallets';
+
+
+    const ROUTE_SUB_MERCHANT_ADD = 'submerchant.add';
+    const ROUTE_SUB_MERCHANT_DELETE = 'submerchant.delete';
+    const ROUTE_SUB_MERCHANT_EDIT = 'submerchant.edit';
+    const ROUTE_SUB_MERCHANT_LIST = 'submerchant.list';
+
+    const SUBMERCHANT_ROUTES = [
+      self::ROUTE_SUB_MERCHANT_ADD,self::ROUTE_SUB_MERCHANT_EDIT, self::ROUTE_SUB_MERCHANT_LIST, self::ROUTE_SUB_MERCHANT_DELETE
+    ];
+
+    // deposit
+    const WALLET_SERVICE_DEPOSIT_CREATE = 'walletservice.deposit.create';
+    const WALLET_SERVICE_DEPOSIT_UPDATE = 'walletservice.deposit.update';
+    const WALLET_SERVICE_DEPOSIT_DELETE = 'walletservice.deposit.delete';
+    const WALLET_SERVICE_DEPOSIT_LIST = 'walletservice.deposit.list';
+    const WALLET_SERVICE_DEPOSIT_DETAILS = 'walletservice.deposit.details';
+    const WALLET_SERVICE_DEPOSIT_CREATE_FORM = 'walletservice.deposit.createForm';
+
+    //TRANSACTION
+    const WALLET_SERVICE_TRANSACTION_LIST = 'walletservice.transactionList';
+    const WALLET_SERVICE_TRANSACTION_DETAILS = 'walletservice.transactionDetails';
+
+    // withdrawl
+    const WALLET_SERVICE_WITHDRAWL_ADD = 'walletservice.withdrawal.add';
+    const WALLET_SERVICE_WITHDRAWL_LIST = 'walletservice.withdrawal.list';
+    const WALLET_SERVICE_WITHDRAWL_DETAIL = 'walletservice.withdrawal.detail';
+
+    // KYC
+    const WALLET_SERVICE_KYC_VERIFICATION = 'walletservice.kycverification';
+
+    /*  ********* wallet service route ********** */
+
+    const API_SERVICE_HTTP_CODE_VALID_REQUEST = 200;
+    const API_SERVICE_HTTP_CODE_BAD_REQUEST = 400;
+    
+	const API_SERVICE_REFUND_CAN_NOT_PROGRESS_FOR_PHYSICAL_POS_TRANSACTION_OLD = 117;
+	
+
+}

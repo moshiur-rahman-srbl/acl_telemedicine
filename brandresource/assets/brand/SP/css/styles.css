@@ -1,0 +1,47 @@
+.page-sidebar a.main-menu, .page-sidebar a.main-menu i.sidebar-item-icon, .page-sidebar a.main-menu img.menu_icon-color {
+    color: #6D57F3 !important;
+}
+
+.page-sidebar a.main-menu img.menu_icon-color {
+    filter: invert(37%) sepia(70%) saturate(1082%) hue-rotate(185deg) brightness(92%) contrast(108%);
+}
+
+.brand-text-color {
+    color: #6D57F3 !important;
+}
+
+.brand-bg-color {
+    background-color: #6D57F3 !important;
+}
+
+.brand-border-color {
+    background-color: #FFFFFF !important;
+    border: 1px solid silver !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 5px !important;
+}
+
+.brand-border-color:focus {
+    border: 1px solid #6D57F3 !important;
+}
+
+.brand-outline-button {
+    color: #6D57F3 !important;
+    background-color: #FFFFFF !important;
+    border-radius: 5px !important;
+    height: auto !important;
+    border: 1px solid #6D57F3;
+}
+
+.brand-outline-button:hover,
+.brand-color-button {
+    color: #FFFFFF !important;
+    background-color: #6D57F3 !important;
+    border-radius: 5px !important;
+    height: auto !important;
+}
+
+.brand-color-button:hover {
+    opacity: 0.8 !important;
+}

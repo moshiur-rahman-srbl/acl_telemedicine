@@ -12,13 +12,18 @@
  */
 
 
+use Illuminate\Support\Facades\Session;
+
 Route::get('/config-cache', function () {
+//    dd(Session::get('permittedRouteNames'));
+
     Artisan::call('config:cache');
     return "Config-Cache is cleared";
 });
 
 
 Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function () {
+
     Route::get('/load-notification', 'HomeController@loadNotification')->name('loadNotification');
     Auth::routes();
     Route::post('/login', 'Auth\LoginController@login')->name('loginpost');
@@ -118,7 +123,10 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         //settings
         Route::match(['get', 'post'], 'settings/edit', 'SettingController@edit')->name(Config::get('constants.defines.APP_SITE_SETTINGS_EDIT'));
 
-
+        Route::get('employee', 'EmployeeController@index')->name(Config::get('constants.defines.APP_EMPLOYEE_INDEX'));
+        Route::match(['get', 'post'], '/employee/create', 'EmployeeController@create')->name(Config::get('constants.defines.APP_EMPLOYEE_CREATE'));
+        Route::match(['get', 'post'], 'employee/edit/{id}', 'EmployeeController@edit')->name(Config::get('constants.defines.APP_EMPLOYEE_EDIT'));
+        Route::delete('employee/destroy/{id}', 'EmployeeController@destroy')->name(Config::get('constants.defines.APP_EMPLOYEE_DELETE'));
     });
 });
 Route::get('lang/{locale}', 'LocalizationController@index')->name('lang');

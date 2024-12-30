@@ -93,6 +93,10 @@ $regular = [
         'GA_USERGROUP_ID' => 2,
         'FDU_USERGROUP_ID' => 33,
         'PANEL' => 'admin',
+        'APP_EMPLOYEE_INDEX' => 'employee.index',
+        'APP_EMPLOYEE_CREATE' => 'employee.create',
+        'APP_EMPLOYEE_EDIT' => 'employee.edit',
+        'APP_EMPLOYEE_DELETE' => 'employee.destroy',
     ],
     'USER_STATUS' => [
         'ENABLE' => '1',

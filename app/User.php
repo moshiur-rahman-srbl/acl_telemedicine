@@ -502,6 +502,7 @@ class User extends Authenticatable
     public function hasPermissionOnAction($routeName)
     {
         $permittedRouteNames = Session::get('permittedRouteNames');
+
         //some constant value is camelcase but all permission is lower case
         //that is why I convert routename to lower case
         if (in_array(strtolower(trim($routeName)), $permittedRouteNames)) {

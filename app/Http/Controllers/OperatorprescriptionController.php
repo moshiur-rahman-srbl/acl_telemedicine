@@ -2,139 +2,144 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Prescription;
 
 class OperatorprescriptionController extends Controller
 {
-    /**
-     * Display a listing of prescriptions.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private Prescription $prescription;
+
+    public function __construct()
     {
-        $cmsInfo = [
+        $this->prescription = new Prescription();
+    }
+
+    public function index(Request $request)
+    {   
+        $prescriptions = Prescription::all();
+       // $input = $request->all();
+       // $view_data = $this->getIndexViewData($input);
+        $view_data = $this->getIndexViewData($prescriptions);
+        return view("prescriptions.index", $view_data,compact('prescriptions'));
+    }
+
+    public function getIndexViewData($input): array
+    {
+        $view_data["cmsInfo"] = [
             'moduleTitle' => __("Prescription Data"),
             'subModuleTitle' => __("Prescription Management"),
             'subTitle' => __("Prescription List")
         ];
-
-        $page_limit = 10;
-        $prescriptions = (new Prescription())->getAll($page_limit);
-
-        return view('prescriptions.index', compact('prescriptions', 'cmsInfo', 'page_limit'));
+        //$view_data["filters"] = $this->prescription->handleSearch($input);
+        $view_data["models"] = (new Prescription())->getAll($view_data);
+        $view_data["page_limit"] = $view_data;
+        return $view_data;
     }
 
-    /**
-     * Show the form for creating a new prescription.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Request $request)
     {
-        $cmsInfo = [
+        if ($request->isMethod("POST")) {
+
+            $input = $request->all();
+            $rule = [
+                'appointment_id' => 'required|integer',
+                'doctor_id' => 'required|integer',
+                'prescription_id' => 'required|integer',
+                'prescription_date' => 'required|date',
+                'medications' => 'required|string',
+                'instructions' => 'nullable|string',
+            ];
+            $validate = Validator::make($input, $rule);
+            if ($validate->fails()) {
+                flash(($validate->errors()->first()), 'danger');
+                return redirect()->back();
+            }
+
+            Prescription::create($input);
+
+            flash(('Saved successfully!'), 'success');
+            return redirect(route(Config::get('constants.defines.APP_PRESCRIPTION_INDEX')));
+        }
+
+        $view_data = $this->getCreateViewData();
+        
+        return view("prescriptions.create", $view_data);
+    }
+
+    public function getCreateViewData(): array
+    {
+        $view_data["cmsInfo"] = [
             'moduleTitle' => __("Prescription Data"),
             'subModuleTitle' => __("Prescription Management"),
             'subTitle' => __("Create Prescription")
         ];
-
-        return view('prescriptions.create', ['cmsInfo' => $cmsInfo]);
+        $view_data["appointments"] = $this->prescription->getPrescriptions();
+        //$view_data["appointments"] = $this->prescription->getAppointments();
+        $view_data["doctors"] = $this->prescription->getdoctors();
+        $view_data["prescriptions"] = $this->prescription->getprescriptions();
+        return $view_data;
     }
 
-    /**
-     * Store a newly created prescription in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit(Request $request, $id)
     {
-        $request->validate([
-            'appointment_id' => 'required|integer',
-            'doctor_id' => 'required|integer',
-            'patient_id' => 'required|integer',
-            'prescription_date' => 'required|date',
-            'medications' => 'required|string',
-            'instructions' => 'nullable|string',
-        ]);
+        if ($request->isMethod("POST")) {
 
-        Prescription::create($request->all());
+            $input = $request->all();
+            $rule = [
+                'appointment_id' => 'required|integer',
+                'doctor_id' => 'required|integer',
+                'prescription_id' => 'required|integer',
+                'prescription_date' => 'required|date',
+                'medications' => 'required|string',
+                'instructions' => 'nullable|string',
+            ];
+            $validate = Validator::make($input, $rule);
+            if ($validate->fails()) {
+                flash(($validate->errors()->first()), 'danger');
+                return redirect()->back();
+            }
 
-        return redirect()->back()->with('success', 'Prescription created successfully!');
+            $prescription = Prescription::findOrFail($id);
+            $prescription->update($input);
+
+            flash(('Update successfully!'), 'success');
+            return redirect(route(Config::get('constants.defines.APP_PRESCRIPTION_INDEX')));
+        }
+
+        $view_data = $this->getEditViewData($id);
+        return redirect(route(Config::get('constants.defines.APP_PRESCRIPTION_INDEX')));
     }
 
-    /**
-     * Display the specified prescription.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function getEditViewData($id): array
     {
-        $prescription = Prescription::findOrFail($id);
-
-        return view('prescriptions.show', compact('prescription'));
-    }
-
-    /**
-     * Show the form for editing the specified prescription.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $prescription = Prescription::findOrFail($id);
-
-        $cmsInfo = [
+        $view_data["cmsInfo"] = [
             'moduleTitle' => __("Prescription Data"),
             'subModuleTitle' => __("Prescription Management"),
             'subTitle' => __("Edit Prescription")
         ];
-
-        return view('prescriptions.edit', compact('prescription', 'cmsInfo'));
+        $view_data["doctors"] = $this->prescription->getdoctors();
+        $view_data["patients"] = $this->prescription->getPatients();
+        $view_data["prescription"] = Prescription::findOrFail($id);
+        return $view_data;
     }
 
-    /**
-     * Update the specified prescription in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function view($id)
     {
         $prescription = Prescription::findOrFail($id);
+        $view_data = $this->getEditViewData($id);
 
-        $request->validate([
-            'appointment_id' => 'required|integer',
-            'doctor_id' => 'required|integer',
-            'patient_id' => 'required|integer',
-            'prescription_date' => 'required|date',
-            'medications' => 'required|string',
-            'instructions' => 'nullable|string',
-        ]);
-
-        $prescription->update($request->all());
-
-        return redirect()->back()->with('success', 'Prescription updated successfully!');
+        return view('prescriptions.view', $view_data);
     }
 
-
-    
-
-    /**
-     * Remove the specified prescription from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($id)
+    public function destroy(Request $request, $id)
     {
         $prescription = Prescription::findOrFail($id);
         $prescription->delete();
 
-        return redirect()->back()->with('success', 'Prescription deleted successfully!');
+        flash(('Delete successfully!'), 'success');
+        return redirect()->back();
     }
 }

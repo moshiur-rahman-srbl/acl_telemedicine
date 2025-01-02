@@ -44,6 +44,15 @@ $regular = [
         'APP_USERS_CHANGEPASSWORD' => 'usermanagement.changepassword',
         'APP_SECRET_QUESTION' => 'usermanagement.secrectQuestion',
 
+        //new added
+
+        'APP_PRESCRIPTION_INDEX' => 'prescription.index',
+        'APP_PRESCRIPTION_CREATE' => 'prescription.create',
+        'APP_PRESCRIPTION_VIEW' => 'prescription.view',
+        'APP_PRESCRIPTION_EDIT' => 'prescriptions.edit',
+        'APP_PRESCRIPTION_UPDATE' => 'prescription.update',
+        'APP_PRESCRIPTION_DELETE' => 'prescription.delete',
+
 
         'APP_MEDICAL_RECORDS_INDEX' => 'medicalrecords.index',
         'APP_MEDICAL_RECORDS_CREATE' => 'medicalrecords.create',

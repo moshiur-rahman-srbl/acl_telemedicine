@@ -7,20 +7,23 @@
     <div class="ibox">
         <div class="ibox-head">
             <div class="ibox-title d-flex justify-content-between">
-                <h3>{{ __($cmsInfo['subTitle']) }}</h3>
+                <h3>Create Prescription</h3>
                 <a href="{{ route(Config::get('constants.defines.APP_PRESCRIPTION_CREATE')) }}" class="ml-3 btn btn-sm btn-primary pull-right">
-                    <i class="fa fa-plus-circle"></i>&nbsp;{{ __('Add') }}
+                    <i class="fa fa-plus-circle"></i>&nbsp;{{ __('Create') }}
                 </a>
             </div>
         </div>
+        <br>
+        <br>
+        <br>
         <div class="ibox-head">
             <div class="ibox-title">
-                {{ $cmsInfo['moduleTitle'] }}
+            <h1 class="text-center">{{ $cmsInfo['moduleTitle'] }}</h1>
             </div>
         </div>
         <div class="ibox-body">
-            <h2>{{ $cmsInfo['subModuleTitle'] }}</h2>
-            <h3>{{ $cmsInfo['subTitle'] }}</h3>
+             
+            <h3 class="text-center">{{ $cmsInfo['subTitle'] }}</h3>
 
             <!-- Prescription Table -->
             <div class="table-responsive">
@@ -50,10 +53,13 @@
                                 <td>{{ $prescription->created_at }}</td>
                                 <td>{{ $prescription->updated_at }}</td>
                                 <td>
-                                    <a href="{{ route('prescriptions.edit', $prescription->id) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('prescription.view', $prescription->id) }}" class="btn btn-sm btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('prescription.edit', $prescription->id) }}" class="btn btn-sm btn-warning">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('prescriptions.delete', $prescription->id) }}" method="POST" style="display:inline-block;">
+                                    <form action="{{ route('prescription.delete', $prescription->id) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this prescription?')">

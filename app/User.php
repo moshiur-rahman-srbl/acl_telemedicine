@@ -64,7 +64,6 @@ use \common\integration\Utility\Str as UtilityStr;
 
 class User extends Authenticatable
 {
-
     use Notifiable, SendEmailTrait, CommonLogTrait, OTPTrait, NotificationTrait, FileUploadTrait, ModelActivityTrait;
     const MOVE_TO_TRASH = "move_to_trash";
 
@@ -441,6 +440,33 @@ class User extends Authenticatable
 
 
 
+
+    //new added
+
+
+    // public function getPrescriptions($filters = [], $paginate = false, $page_limit = 10)
+    // {
+    //     $query = $this->where('id',$prescription)->first();
+
+    //    return $paginate ? $query->paginate($page_limit) : $query->get();
+    // }
+    // public function getAppointments($filters = [], $paginate = false, $page_limit = 10)
+    // {
+    //     $query = $this->get()
+    //     return $query;
+    //     return $paginate ? $query->paginate($page_limit) : $query->get();
+    // }
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Get all users from database.
      *
@@ -697,7 +723,7 @@ class User extends Authenticatable
     public function masked_name($user)
     {
         $str = "";
-        $str .= substr($user->first_name,0,0) . "***" . substr($user->last_name,1,1) . "***";
+        $str .= substr($user->first_name,0,0) . "*" . substr($user->last_name,1,1) . "*";
         return $str;
     }
 

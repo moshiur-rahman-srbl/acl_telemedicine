@@ -82,13 +82,13 @@ class InformationMasking
 
     public static function hideValues($data, $hides, $masks = [], $replace_with = "***", $should_mask = true ){
        //to statically log all request
-        if ($should_mask){
-            foreach ($hides as $hide) {
-                if (strlen($hide) >= (Card::BIN_DIGITS_LEN+Card::LAST_DIGITS_LEN)){
-                    $masks["masked_".base64_encode($hide)] = $hide;
-                }
-            }
-        }
+        // if ($should_mask){
+        //     foreach ($hides as $hide) {
+        //         if (strlen($hide) >= (Card::BIN_DIGITS_LEN+Card::LAST_DIGITS_LEN)){
+        //             $masks["masked_".base64_encode($hide)] = $hide;
+        //         }
+        //     }
+        // }
         if(!empty($masks)){
             return self::maskAndHide($data, $hides, $masks);
         }

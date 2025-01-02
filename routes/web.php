@@ -123,10 +123,22 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         //settings
         Route::match(['get', 'post'], 'settings/edit', 'SettingController@edit')->name(Config::get('constants.defines.APP_SITE_SETTINGS_EDIT'));
 
-        Route::get('employee', 'EmployeeController@index')->name(Config::get('constants.defines.APP_EMPLOYEE_INDEX'));
-        Route::match(['get', 'post'], '/employee/create', 'EmployeeController@create')->name(Config::get('constants.defines.APP_EMPLOYEE_CREATE'));
-        Route::match(['get', 'post'], 'employee/edit/{id}', 'EmployeeController@edit')->name(Config::get('constants.defines.APP_EMPLOYEE_EDIT'));
-        Route::delete('employee/destroy/{id}', 'EmployeeController@destroy')->name(Config::get('constants.defines.APP_EMPLOYEE_DELETE'));
+        Route::get('appoinment', 'AppoinmentController@index')->name(config::get('constants.defines.APP_APPOINMENT_INDEX'));
+        Route::match(['get', 'post'], '/appoinment/create', 'AppoinmentController@create')->name(config::get('constants.defines.APP_APPOINMENT_CREATE'));
+        Route::match(['get', 'post'], 'appoinment/edit/{id}', 'AppoinmentController@edit')->name(Config::get('constants.defines.APP_APPOINMENT_EDIT'));
+        Route::delete('appoinment/destroy/{id}', 'AppoinmentController@destroy')->name(Config::get('constants.defines.APP_APPOINMENT_DELETE'));
+
+        Route::get('/appoinment/{id}/view', 'AppoinmentController@view')->name(Config::get('constants.defines.APP_APPOINMENT_VIEW'));
+
+
+
+        Route::get('medical_records', 'MedicalRecordsController@index')->name(config::get('constants.defines.APP_MEDICAL_RECORDS_INDEX'));
+        Route::match(['get', 'post'], '/medical_records/create', 'MedicalRecordsController@create')->name(config::get('constants.defines.APP_MEDICAL_RECORDS_CREATE'));
+        Route::match(['get', 'post'], 'medical_records/edit/{id}', 'MedicalRecordsController@edit')->name(Config::get('constants.defines.APP_MEDICAL_RECORDS_EDIT'));
+        Route::delete('medical_records/destroy/{id}', 'MedicalRecordsController@destroy')->name(Config::get('constants.defines.APP_MEDICAL_RECORDS_DELETE'));
+
+        Route::get('/medical_records/{id}/view', 'MedicalRecordsController@view')->name(Config::get('constants.defines.APP_MEDICAL_RECORDS_VIEW'));
+
     });
 });
 Route::get('lang/{locale}', 'LocalizationController@index')->name('lang');

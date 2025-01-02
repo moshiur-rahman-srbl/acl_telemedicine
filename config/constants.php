@@ -43,6 +43,20 @@ $regular = [
         'APP_USERS_RESEND_OTP' => 'usermanagement.resendOTP',
         'APP_USERS_CHANGEPASSWORD' => 'usermanagement.changepassword',
         'APP_SECRET_QUESTION' => 'usermanagement.secrectQuestion',
+      
+    
+
+        'APP_APPOINMENT_INDEX' => 'appoinment.index',
+        'APP_APPOINMENT_CREATE' => 'appoinment.create',
+        'APP_APPOINMENT_EDIT' => 'appoinment.edit',
+        'APP_APPOINMENT_VIEW' => 'appoinment.view',       
+        'APP_APPOINMENT_DELETE' => 'appoinment.delete',
+
+        'APP_MEDICAL_RECORDS_INDEX' => 'medicalrecords.index',
+        'APP_MEDICAL_RECORDS_CREATE' => 'medicalrecords.create',
+        'APP_MEDICAL_RECORDS_VIEW' => 'medicalrecords.view', 
+        'APP_MEDICAL_RECORDS_EDIT' => 'medicalrecords.edit', 
+        'APP_MEDICAL_RECORDS_DELETE' => 'medicalrecords.delete',    
 
 
         'APP_ROLES_INDEX' => 'rolemanagement.index',
@@ -93,10 +107,6 @@ $regular = [
         'GA_USERGROUP_ID' => 2,
         'FDU_USERGROUP_ID' => 33,
         'PANEL' => 'admin',
-        'APP_EMPLOYEE_INDEX' => 'employee.index',
-        'APP_EMPLOYEE_CREATE' => 'employee.create',
-        'APP_EMPLOYEE_EDIT' => 'employee.edit',
-        'APP_EMPLOYEE_DELETE' => 'employee.destroy',
     ],
     'USER_STATUS' => [
         'ENABLE' => '1',

@@ -84,9 +84,9 @@ class InformationMasking
        //to statically log all request
         if ($should_mask){
             foreach ($hides as $hide) {
-                if (strlen($hide) >= (Card::BIN_DIGITS_LEN+Card::LAST_DIGITS_LEN)){
-                    $masks["masked_".base64_encode($hide)] = $hide;
-                }
+                // if (strlen($hide) >= (Card::BIN_DIGITS_LEN+Card::LAST_DIGITS_LEN)){
+                //     $masks["masked_".base64_encode($hide)] = $hide;
+                // }
             }
         }
         if(!empty($masks)){

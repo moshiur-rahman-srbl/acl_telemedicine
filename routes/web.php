@@ -11,7 +11,7 @@
   |
  */
 
-
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 
 Route::get('/config-cache', function () {
@@ -57,7 +57,7 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::match(['get', 'post'], 'secret-question', 'UserController@secrectQuestion')->name(Config::get('constants.defines.APP_SECRET_QUESTION'));
     });
 
-    Route::group(['middleware' => ['auth', 'permission', 'TwoFA', 'VisitorLog', 'passCheckr']], function () {
+    Route::group(['middleware' => ['auth', 'TwoFA', 'VisitorLog', 'passCheckr']], function () {
 
         Route::get('profile/edit/{id}', 'UserController@profileEdit')->name('profile.edit.get');
         Route::post('profile/edit/{id}', 'UserController@profileEdit')->name('profile.edit.post');
@@ -118,9 +118,21 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::post('profile/verifyOTP/{id}', 'UserController@verifyOTP')->name(Config::get('constants.defines.APP_USERS_VERIFY_OTP'));
         Route::get('profile/resendOTP/{id}', 'UserController@resendOTP')->name(Config::get('constants.defines.APP_USERS_RESEND_OTP'));
         Route::get('logs', 'LogsController@index')->name(Config::get('constants.defines.APP_LOGS_INDEX'));
+        Route::get('appoinment', 'AppoinmentController@index')->name(config::get('constants.defines.APP_APPOINMENT_INDEX'));
+        Route::match(['get', 'post'], '/appoinment/create', 'AppoinmentController@create')->name(config::get('constants.defines.APP_APPOINMENT_CREATE'));
+        Route::match(['get', 'post'], 'appoinment/edit/{id}', 'AppoinmentController@edit')->name(Config::get('constants.defines.APP_APPOINMENT_EDIT'));
+        Route::delete('appoinment/destroy/{id}', 'AppoinmentController@destroy')->name(Config::get('constants.defines.APP_APPOINMENT_DELETE'));
 
-
+        Route::get('/appoinment/{id}/view', 'AppoinmentController@view')->name(Config::get('constants.defines.APP_APPOINMENT_VIEW'));
         //settings
+
+        Route::get('doctor', 'DoctorController@index')->name(config::get('constants.defines.APP_DOCTOR_INDEX'));
+        Route::match(['get', 'post'], '/doctor/create', 'DoctorController@create')->name(config::get('constants.defines.APP_DOCTOR_CREATE'));
+        Route::match(['get', 'post'], 'doctor/edit/{id}', 'DoctorController@edit')->name(Config::get('constants.defines.APP_DOCTOR_EDIT'));
+        Route::delete('doctor/destroy/{id}', 'DoctorController@destroy')->name(Config::get('constants.defines.APP_DOCTOR_DELETE'));
+
+        Route::get('/doctor/{id}/view', 'DoctorController@view')->name(Config::get('constants.defines.APP_DOCTOR_VIEW'));
+
         Route::match(['get', 'post'], 'settings/edit', 'SettingController@edit')->name(Config::get('constants.defines.APP_SITE_SETTINGS_EDIT'));
 
         Route::get('employee', 'EmployeeController@index')->name(Config::get('constants.defines.APP_EMPLOYEE_INDEX'));

@@ -99,6 +99,28 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::match(['get', 'post'], 'pages/edit/{id}', 'PageController@edit')->name(Config::get('constants.defines.APP_PAGES_EDIT'));
         Route::delete('pages/destroy/{id}', 'PageController@destroy')->name(Config::get('constants.defines.APP_PAGES_DELETE'));
 
+        Route::get('appoinment', 'AppoinmentController@index')->name(config::get('constants.defines.APP_APPOINMENT_INDEX'));
+        Route::match(['get', 'post'], '/appoinment/create', 'AppoinmentController@create')->name(config::get('constants.defines.APP_APPOINMENT_CREATE'));
+        Route::match(['get', 'post'], 'appoinment/edit/{id}', 'AppoinmentController@edit')->name(Config::get('constants.defines.APP_APPOINMENT_EDIT'));
+        Route::delete('appoinment/destroy/{id}', 'AppoinmentController@destroy')->name(Config::get('constants.defines.APP_APPOINMENT_DELETE'));
+
+        Route::get('/appoinment/{id}/view', 'AppoinmentController@view')->name(Config::get('constants.defines.APP_APPOINMENT_VIEW'));
+
+
+
+        Route::get('patient', 'PatientController@index')->name(config::get('constants.defines.APP_PATIENT_INDEX'));
+        Route::match(['get', 'post'], '/patient/create', 'PatientController@create')->name(config::get('constants.defines.APP_PATIENT_CREATE'));
+        Route::match(['get', 'post'], 'patient/edit/{id}', 'PatientController@edit')->name(Config::get('constants.defines.APP_PATIENT_EDIT'));
+        Route::delete('patient/destroy/{id}', 'PatientController@destroy')->name(Config::get('constants.defines.APP_PATIENT_DELETE'));
+        Route::get('/patient/{id}/view', 'PatientController@view')->name(Config::get('constants.defines.APP_PATIENT_VIEW'));
+
+
+
+        Route::get('employee', 'EmployeeController@index')->name(Config::get('constants.defines.APP_EMPLOYEE_INDEX'));
+        Route::match(['get', 'post'], '/employee/create', 'EmployeeController@create')->name(Config::get('constants.defines.APP_EMPLOYEE_CREATE'));
+        Route::match(['get', 'post'], 'employee/edit/{id}', 'EmployeeController@edit')->name(Config::get('constants.defines.APP_EMPLOYEE_EDIT'));
+        Route::delete('employee/destroy/{id}', 'EmployeeController@destroy')->name(Config::get('constants.defines.APP_EMPLOYEE_DELETE'));
+
 
         Route::match(['get', 'post'], 'usergrouproles', 'UsergroupRoleController@index')->name(Config::get('constants.defines.APP_USERGROUP_ROLE_ASSOCIATION'));
         Route::match(['get', 'post'], 'usergrouproles/edit', 'UsergroupRoleController@edit')->name(Config::get('constants.defines.APP_USERGROUP_EDIT_ROLE_ASSOCIATION'));
@@ -123,10 +145,7 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         //settings
         Route::match(['get', 'post'], 'settings/edit', 'SettingController@edit')->name(Config::get('constants.defines.APP_SITE_SETTINGS_EDIT'));
 
-        Route::get('employee', 'EmployeeController@index')->name(Config::get('constants.defines.APP_EMPLOYEE_INDEX'));
-        Route::match(['get', 'post'], '/employee/create', 'EmployeeController@create')->name(Config::get('constants.defines.APP_EMPLOYEE_CREATE'));
-        Route::match(['get', 'post'], 'employee/edit/{id}', 'EmployeeController@edit')->name(Config::get('constants.defines.APP_EMPLOYEE_EDIT'));
-        Route::delete('employee/destroy/{id}', 'EmployeeController@destroy')->name(Config::get('constants.defines.APP_EMPLOYEE_DELETE'));
+       
     });
 });
 Route::get('lang/{locale}', 'LocalizationController@index')->name('lang');

@@ -43,6 +43,27 @@ $regular = [
         'APP_USERS_RESEND_OTP' => 'usermanagement.resendOTP',
         'APP_USERS_CHANGEPASSWORD' => 'usermanagement.changepassword',
         'APP_SECRET_QUESTION' => 'usermanagement.secrectQuestion',
+       
+        'APP_EMPLOYEE_INDEX' => 'employee.index',
+        'APP_EMPLOYEE_CREATE' => 'employee.create',
+        'APP_EMPLOYEE_EDIT' => 'employee.edit',
+        'APP_EMPLOYEE_VIEW' => 'employee.',       
+'APP_EMPLOYEE_DELETE' => 'employee.destroy',
+
+
+
+
+'APP_APPOINMENT_INDEX' => 'appoinment.index',
+'APP_APPOINMENT_CREATE' => 'appoinment.create',
+'APP_APPOINMENT_EDIT' => 'appoinment.edit',
+'APP_APPOINMENT_VIEW' => 'appoinment.view',       
+'APP_APPOINMENT_DELETE' => 'appoinment.delete',
+
+'APP_PATIENT_INDEX' => 'patient.index',
+'APP_PATIENT_CREATE' => 'patient.create',
+'APP_PATIENT_EDIT' => 'patient.edit',
+'APP_PATIENT_VIEW' => 'patient.view',       
+'APP_PATIENT_DELETE' => 'patient.delete',
 
 
         'APP_ROLES_INDEX' => 'rolemanagement.index',
@@ -89,14 +110,12 @@ $regular = [
         'B2B_TIME_DIFFERENCE' => 72 * 60, //72 hours in mins
         'APP_LOGS_INDEX' => 'logs.index',
 
+        //'APP_EMPLOYEE_INDEX' => 'employee.index',
+
         //test Global admin id and Finance dept user id
         'GA_USERGROUP_ID' => 2,
         'FDU_USERGROUP_ID' => 33,
         'PANEL' => 'admin',
-        'APP_EMPLOYEE_INDEX' => 'employee.index',
-        'APP_EMPLOYEE_CREATE' => 'employee.create',
-        'APP_EMPLOYEE_EDIT' => 'employee.edit',
-        'APP_EMPLOYEE_DELETE' => 'employee.destroy',
     ],
     'USER_STATUS' => [
         'ENABLE' => '1',

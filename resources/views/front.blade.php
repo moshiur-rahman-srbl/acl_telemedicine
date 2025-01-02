@@ -12,8 +12,8 @@
                     <div class="card-body flexbox-b">
                         <i class="fa fa-users fa-3x text-success fa_circle_border"></i>
                         <div>
-                            <h3 class="font-strong text-success">10</h3>
-                            <div class="text-muted">{{__('Merchants ')}}</div>
+                            <h3 class="font-strong text-success">15</h3>
+                            <div class="text-muted">{{__('Doctors')}}</div>
                         </div>
                     </div>
                     <table class="table table-head-success">
@@ -57,7 +57,7 @@
                         <i class="fa fa-globe fa-3x text-purple fa_circle_border"></i>
                         <div>
                             <h3 class="font-strong text-primary">10</h3>
-                            <div class="text-muted">{{__('Pending Deposits')}}</div>
+                            <div class="text-muted">{{__('Patients')}}</div>
                         </div>
                     </div>
                     <table class="table table-head-purple">
@@ -65,8 +65,8 @@
                         <tr>
                             <th>#</th>
                             <th>{{__('User')}}</th>
-                            <th>{{__('Deposit Method')}}</th>
-                            <th>{{__('Currency')}}</th>
+                            <th>{{__('Payment Method')}}</th>
+                            <th>{{__('Doctors Section')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -104,7 +104,7 @@
                         <i class="fa fa-globe fa-3x fa_circle_border" style="color:#F39C12; "></i>
                         <div>
                             <h3 class="font-strong" style="color:#F39C12;">10</h3>
-                            <div class="text-muted">{{__('Withdrawal Requests')}}</div>
+                            <div class="text-muted">{{__('Services')}}</div>
                         </div>
                     </div>
                     <table class="table table-head-yellow">
@@ -112,8 +112,8 @@
                         <tr>
                             <th>#</th>
                             <th>{{__('User')}}</th>
-                            <th>{{__('Deposit Method')}}</th>
-                            <th>{{__('Currency')}}</th>
+                            <th>{{__('Payment Method')}}</th>
+                            <th>{{__('Doctors Section')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -149,7 +149,7 @@
                         <i class="fa fa-globe fa-3x fa_circle_border" style="color:#f75a5f; "></i>
                         <div>
                             <h3 class="font-strong" style="color:#f75a5f; ">----</h3>
-                            <div class="text-muted">{{__('Transactions')}}</div>
+                            <div class="text-muted">{{__('Appointments')}}</div>
                         </div>
                     </div>
                     <table class="table table-head-red">
@@ -158,7 +158,7 @@
                             <th>#</th>
                             <th>{{__('User')}}</th>
                             <th>{{__('Activity Title')}}</th>
-                            <th>{{__('Currency')}}</th>
+                            <th>{{__('Doctors Section')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -268,7 +268,7 @@
 @section('css')
     <style>
         .table-head-yellow thead th {
-            background-color: #f39c12;
+            background-color:rgb(72, 141, 214);
             border-color: #f39c12;
             color: #fff;
         }

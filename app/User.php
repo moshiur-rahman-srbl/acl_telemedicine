@@ -76,6 +76,15 @@ class User extends Authenticatable
     const SALES_ADMIN = 5;
     const SALES_EXPERT = 6;
 
+    const TYPE_ADMIN=1;
+
+    const TYPE_DOCTOR=2;
+
+    const TYPE_OPERATOR=3;
+
+    const TYPE_RECEPTOR=4;
+    const TYPE_PATIENT=5;
+
     const USER_TYPES = [
         self::CUSTOMER => 'Customer',
         self::ADMIN => 'Admin',
@@ -85,6 +94,7 @@ class User extends Authenticatable
         self::SALES_ADMIN => 'Sales Admin',
         self::SALES_EXPERT => 'Sales Expert'
     ];
+
 
     const OTP_OPTION = [
         '0' => 'OTP Not required',
@@ -99,7 +109,7 @@ class User extends Authenticatable
     //     3 => 'Verified',
     //     4 => 'Contracted'
     // ];
-
+    const MOVE_TO_TRASH = "move_to_trash";
     const PENDING = 0;
     const ADMIN_VERIFIED = 1;
     const APPROVED = 1;
@@ -136,6 +146,89 @@ class User extends Authenticatable
     const WRONG_CAPTCHA_COUNT = 10;
     const WRONG_CAPTCHA_LOCK_TIME = 10;
 
+
+    public function handleSearch($input): array
+    {
+        $filters["page_limit"] = $input["page_limit"] ?? 10;
+        $filters["filter_key"] = $input["filter_key"] ?? '';
+        $filters["status"] = $input["status"] ?? '';
+        // $filters["doctor_id"] = $input["doctor_id"] ?? '';
+       
+        // $filters["start_date"] = $input["start_date"] ?? '';
+        // $filters["end_date"] = $input["end_date"] ?? '';
+        return $filters;
+    }
+    public function getDoctors($filters = [], $paginate = false, $page_limit = 10)
+    {
+        $query = $this->filters($filters)->where("type",self::TYPE_DOCTOR);
+        return $paginate ? $query->paginate($page_limit) : $query->get();
+    }
+    private function filters($filters = [])
+    {
+        $query = self::query();
+
+        if (!empty($filters["name"])) {
+            $query->where("name", $filters["name"]);
+        }
+
+        if (!empty($filters["email"])) {
+            $query->where("email", $filters["email"]);
+        }
+        if (!empty($filters["license_number"])) {
+            $query->where("license_number", $filters["license_number"]);
+        }
+        if (!empty($filters["experience_years"])) {
+            $query->where("experience_years", $filters["experience_years"]);
+        }
+        if (!empty($filters["speciality"])) {
+            $query->where("speciality", $filters["speciality"]);
+        }
+        
+        
+        return $query;
+    }
+    public function validateDoctors(): array
+    {
+        $rules = [
+            //"status" => "required|string|in:1,2,3",
+            // "doctor_id" => "required|integer|exists:users,id",
+            "name" => "required|string|max:180|min:6",
+            "email" => "required|email|max:150|min:4",
+        ];
+
+        $messages = [
+            'status.required' => __("The status is required."),
+            // 'doctor_id.required' => __("The doctor is required."),
+            // 'patient_id.required' => __("The patient is required."),
+            // 'appointment_date.after' => __("The appointment date must be in the future."),
+        ];
+
+        return [$rules, $messages];
+    }
+    public function prepareInsertData($input): array
+    {
+        return [
+            "type" => self::TYPE_DOCTOR,
+            "user_type" => self::TYPE_ADMIN,
+            "name" => $input["name"],
+            "email" => $input["email"],
+            "license_number" => $input["license_number"],
+            "experience_years" => $input["experience_years"],
+            "speciality" => $input["speciality"], // Optional field for additional notes
+        ];
+    }
+
+    public function saveDoctor($input)
+    {
+        return self::query()->create($input);
+    }
+
+    public function updateDoctor($id, $input)
+    {
+        return self::query()
+            ->where("id", $id)
+            ->update($input);
+    }
     const FILLABLE_COLUMNS = [
         'account_status',
         'activated_at',
@@ -624,7 +717,6 @@ class User extends Authenticatable
     public function hasPermissionOnAction($routeName)
     {
         $permittedRouteNames = Session::get('permittedRouteNames');
-
         //some constant value is camelcase but all permission is lower case
         //that is why I convert routename to lower case
         if (in_array(strtolower(trim($routeName)), $permittedRouteNames)) {
@@ -672,7 +764,7 @@ class User extends Authenticatable
 
         try {
 
-            \DB::beginTransaction();
+            //DB::beginTransaction();
 
             // get random customer number
             $rancustid = new RandomCustomerId();
@@ -726,7 +818,7 @@ class User extends Authenticatable
                 }
             }
 
-            \DB::commit();
+            //DB::commit();
 
         } catch (\Throwable $exception) {
             DB::rollBack();
@@ -853,7 +945,7 @@ class User extends Authenticatable
 
         try{
 
-            \DB::beginTransaction();
+            //DB::beginTransaction();
 
             $userObj = $this->findUserById($id);
 

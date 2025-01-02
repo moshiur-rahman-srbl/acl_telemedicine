@@ -2,133 +2,98 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
-    private Employee $employee;
-
-    public function __construct()
-    {
-        $this->employee = new Employee();
-    }
-
-    public function index(Request $request)
-    {
-        $input = $request->all();
-        $view_data = $this->getIndexViewData($input);
-        return view("employees.index", $view_data);
-    }
-
-    public function getIndexViewData($input): array
-    {
-        $view_data["cmsInfo"] = [
-            'moduleTitle' => __("EmployeeControl"),
-            'subModuleTitle' => __("EmployeeManagement"),
-            'subTitle' => __("EmployeeList")
+    //
+    public function index(Request $request){
+        $page_limit = $request->input("page_limit", 10);
+        $employees = (new Employee())->getAll($page_limit);
+        $cmsInfo = [
+            'moduleTitle' => __("Master Data"),
+            'subModuleTitle' => __("Page Management"),
+            'subTitle' => __("Page List")
         ];
-        $view_data["filters"] = $this->employee->handleSearch($input);
-        $view_data["models"] = $this->employee->getAll($view_data["filters"], true, $view_data["filters"]["page_limit"]);
-        $view_data["page_limit"] = $view_data["filters"]["page_limit"];
-        $view_data["genders"] = $this->employee->getGender();
-        return $view_data;
+        
+        
+        return view('employees.index', compact('employees', 'cmsInfo','page_limit'));
+
     }
 
-    public function create(Request $request)
+public function create(Request $request){
     {
-        if ($request->isMethod("POST")) {
-
+        if ($request->isMethod('post')) {
             $input = $request->all();
-            [$rule, $message] = $this->employee->validateData();
-            $validate = Validator::make($input, $rule, $message);
-            if ($validate->fails()) {
-                flash(__($validate->errors()->first()), 'danger');
-                return redirect()->back();
-            }
+            $request->validate([
+                'name' => 'required|string|max:255',  
+                'email' => 'required|email|unique:employees,email', 
+                'phone' => 'required|string|max:20',  
+                'gender' => 'required|in:male,female,other', 
+                'designation' => 'required|string|max:255',  
+            ]);
 
-            $store_data = $this->employee->prepareInsertData($input);
-            $mployee = $this->employee->saveData($store_data);
-
-            if (!empty($mployee)) {
-                flash(__('Saved successfully!'), 'success');
-            } else {
-                flash(__('Some Errors!'), 'danger');
+            $employee = (new Employee())->createData($input);
+            if(!empty($employee)){
+                flash(__('The record has been saved successfully!'), 'success');
+            }else{
+                flash(__('The record has been saved successfully!'), 'success');
             }
-            return redirect(route(Config::get('constants.defines.APP_EMPLOYEE_INDEX')));
 
         }
 
-        $view_data = $this->getCreateViewData();
-        return view("employees.create", $view_data);
-    }
-
-    public function getCreateViewData(): array
-    {
-        $view_data["cmsInfo"] = [
-            'moduleTitle' => __("Employee ontrol"),
+        
+        $cmsInfo = [
+            'moduleTitle' => __("Master Data"),
             'subModuleTitle' => __("Employee Management"),
-            'subTitle' => __("Employee Create")
+            'subTitle' => __("Add New Employee"),
         ];
-        $view_data["genders"] = $this->employee->getGender();
-        return $view_data;
+
+        return view('employees.create', compact('cmsInfo'));
     }
 
-    public function edit(Request $request, $id)
-    {
+}
+public function destroy($id)
+{
+    $employee = Employee::find($id);
 
-        if ($request->isMethod("POST")) {
-
-            $input = $request->all();
-            [$rule, $message] = $this->employee->validateData();
-            $validate = Validator::make($input, $rule, $message);
-            if ($validate->fails()) {
-                flash(__($validate->errors()->first()), 'danger');
-                return redirect()->back();
-            }
-
-            $update_data = $this->employee->prepareInsertData($input);
-            $mployee = $this->employee->updateData($id, $update_data);
-
-            if (!empty($mployee)) {
-                flash(__('Update successfully!'), 'success');
-            } else {
-                flash(__('Some Errors!'), 'danger');
-            }
-            return redirect(route(Config::get('constants.defines.APP_EMPLOYEE_INDEX')));
-        }
-
-        $view_data = $this->getEditViewData($id);
-        return view("employees.edit", $view_data);
+    if ($employee) {
+        $employee->delete();
+        return redirect()->route(Config::get('constants.defines.APP_EMPLOYEE_INDEX'))->with('success', 'Employee deleted successfully.');
     }
 
-    public function getEditViewData($id): array
-    {
-        $view_data["cmsInfo"] = [
-            'moduleTitle' => __("Employee Control"),
-            'subModuleTitle' => __("Employee Management"),
-            'subTitle' => __("Employee Edit")
-        ];
-        $view_data["genders"] = $this->employee->getGender();
-        $view_data["model"] = $this->employee->findById($id);
-        return $view_data;
-    }
+    return redirect()->route(Config::get('constants.defines.APP_EMPLOYEE_INDEX'))->with('error', 'Employee not found.');
+}
 
-    public function destroy(Request $request, $id)
-    {
-        if (!empty($request->action) && $request->action == Employee::MOVE_TO_TRASH) {
-            $ids = $request->input('ids', []);
-        } else {
-            $ids = $id;
-        }
-        $mployee = $this->employee->deleteData($ids);
-        if ($mployee) {
-            flash(__('Delete successfully!'), 'success');
-        } else {
-            flash(__('Some Errors!'), 'danger');
-        }
-        return redirect()->back();
-    }
+public function edit($id)
+{
+    $employee = Employee::findOrFail($id);
+
+    $cmsInfo = [
+        'moduleTitle' => __("Employee Data"),
+        'subModuleTitle' => __("Employee Management"),
+        'subTitle' => __("Edit Employee")
+    ];
+
+    return view('employees.edit', compact('employee', 'cmsInfo'));
+}
+public function update(Request $request, $id)
+{
+    $employee = Employee::findOrFail($id);
+
+    $request->validate([
+       
+        'email' => 'required|email|unique:employees,email,' . $id,
+        
+    ]);
+
+    $employee->update($request->all());
+
+    return redirect()->route('employees.index')->with('success', 'Employee updated successfully!');
+}
+
 }

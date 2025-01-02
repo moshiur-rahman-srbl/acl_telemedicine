@@ -43,26 +43,19 @@ $regular = [
         'APP_USERS_RESEND_OTP' => 'usermanagement.resendOTP',
         'APP_USERS_CHANGEPASSWORD' => 'usermanagement.changepassword',
         'APP_SECRET_QUESTION' => 'usermanagement.secrectQuestion',
-       
-        'APP_EMPLOYEE_INDEX' => 'employee.index',
-        'APP_EMPLOYEE_CREATE' => 'employee.create',
-        'APP_EMPLOYEE_EDIT' => 'employee.edit',
-        'APP_EMPLOYEE_VIEW' => 'employee.',       
-'APP_EMPLOYEE_DELETE' => 'employee.destroy',
+        'APP_EMPLOYEE_INDEX' => 'employees.index',
+        'APP_EMPLOYEE_CREATE' => 'employees.create',
+        'APP_EMPLOYEE_DELETE' => 'employee.destroy',
+        'APP_EMPLOYEE_EDIT'=>'employee.edit',
+        'APP_EMPLOYEE_UPDATE'=>'employees.update',
 
 
 
-
-'APP_APPOINMENT_INDEX' => 'appoinment.index',
-'APP_APPOINMENT_CREATE' => 'appoinment.create',
-'APP_APPOINMENT_EDIT' => 'appoinment.edit',
-'APP_APPOINMENT_VIEW' => 'appoinment.view',       
-'APP_APPOINMENT_DELETE' => 'appoinment.delete',
 
 'APP_PATIENT_INDEX' => 'patient.index',
 'APP_PATIENT_CREATE' => 'patient.create',
 'APP_PATIENT_EDIT' => 'patient.edit',
-'APP_PATIENT_VIEW' => 'patient.view',       
+'APP_PATIENT_VIEW' => 'patient.view',
 'APP_PATIENT_DELETE' => 'patient.delete',
 
 
@@ -99,6 +92,18 @@ $regular = [
         'APP_ROLE_PAGE_ASSOCIATION' => 'role&pageassociation.index',
         'APP_ROLE_PAGE_EDIT_ASSOCIATION' => 'role&pageassociation.edit',
         'APP_ROLE_PAGE_ASSOCIATION_EXPORT' => 'role&pageassociation.exportRolePage',
+        'APP_APPOINMENT_INDEX' => 'appoinment.index',
+'APP_APPOINMENT_CREATE' => 'appoinment.create',
+'APP_APPOINMENT_EDIT' => 'appoinment.edit',
+'APP_APPOINMENT_VIEW' => 'appoinment.view',
+'APP_APPOINMENT_DELETE' => 'appoinment.delete',
+
+
+        'APP_DOCTOR_INDEX' => 'doctor.index',
+'APP_DOCTOR_CREATE' => 'doctor.create',
+'APP_DOCTOR_EDIT' => 'doctor.edit',
+'APP_DOCTOR_VIEW' => 'doctor.view',
+'APP_DOCTOR_DELETE' => 'doctor.delete',
 
         'APP_SITE_SETTINGS_EDIT' => 'sitesettings.edit',
 
@@ -109,8 +114,6 @@ $regular = [
         'NOT_VERIFIED_USER_SEND_MONEY_TIME_DIFFERENCE' => 24 * 60, //72 hours in mins
         'B2B_TIME_DIFFERENCE' => 72 * 60, //72 hours in mins
         'APP_LOGS_INDEX' => 'logs.index',
-
-        //'APP_EMPLOYEE_INDEX' => 'employee.index',
 
         //test Global admin id and Finance dept user id
         'GA_USERGROUP_ID' => 2,

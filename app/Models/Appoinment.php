@@ -157,49 +157,22 @@ class Appoinment extends Model
     /**
      * Validation rules and messages for appointments.
      */
-    // public function validateData(): array
-    // {
-    //     $rules = [
-    //         "status" => "required|string|in:1,2,3",
-    //         // "doctor_id" => "required|integer|exists:users,id",
-    //         // "patient_id" => "required|integer|exists:patients,id",
-    //         // "appointment_date" => "required|date|after:today",
-    //     ];
-
-    //     $messages = [
-    //         'status.required' => __("The status is required."),
-    //         // 'doctor_id.required' => __("The doctor is required."),
-    //         // 'patient_id.required' => __("The patient is required."),
-    //         // 'appointment_date.after' => __("The appointment date must be in the future."),
-    //     ];
-
-    //     return [$rules, $messages];
-    // }
-
-
     public function validateData(): array
     {
         $rules = [
-            "doctor_id" => "required",
-            "patient_id" => "required",
-            "appointment_date_time" => "required",
-            "notes" => "required|string|max:255",
-            "status" => "required",
+            "status" => "required|string|in:1,2,3",
+            // "doctor_id" => "required|integer|exists:users,id",
+            // "patient_id" => "required|integer|exists:patients,id",
+            // "appointment_date" => "required|date|after:today",
+        ];
 
-        ];
-    
         $messages = [
-        //     'doctor_id.required' => __("The doctor is required."),
-        // 'name.max' => __("The name must not exceed 191 characters."),
-        // 'email.required' => __("The email is required."),
-        // 'email.email' => __("The email must be a valid email address."),
-        // 'email.unique' => __("The email has already been taken."),
-        //     'phone.required' => __("The phone number is required."),
-        //     'phone.digits_between' => __("The phone number must not exceed 50 characters."),
-        //     'address.required' => __("The address is required."),
-        //     'address.max' => __("The address must not exceed 255 characters."),
+            'status.required' => __("The status is required."),
+            // 'doctor_id.required' => __("The doctor is required."),
+            // 'patient_id.required' => __("The patient is required."),
+            // 'appointment_date.after' => __("The appointment date must be in the future."),
         ];
-    
+
         return [$rules, $messages];
     }
 }

@@ -82,13 +82,13 @@ class InformationMasking
 
     public static function hideValues($data, $hides, $masks = [], $replace_with = "***", $should_mask = true ){
        //to statically log all request
-        if ($should_mask){
-            foreach ($hides as $hide) {
-                // if (strlen($hide) >= (Card::BIN_DIGITS_LEN+Card::LAST_DIGITS_LEN)){
-                //     $masks["masked_".base64_encode($hide)] = $hide;
-                // }
-            }
-        }
+        // if ($should_mask){
+        //     foreach ($hides as $hide) {
+        //         if (strlen($hide) >= (Card::BIN_DIGITS_LEN+Card::LAST_DIGITS_LEN)){
+        //             $masks["masked_".base64_encode($hide)] = $hide;
+        //         }
+        //     }
+        // }
         if(!empty($masks)){
             return self::maskAndHide($data, $hides, $masks);
         }
@@ -143,14 +143,14 @@ class InformationMasking
             foreach ($masked_arr as $k => $v) {
                 $data = self::hideValues($data, [$k], [], $v,false);
             }
-            
+
             return $data;
         }catch (\Throwable $t){
             return  $data;
         }
     }
-    
-    
+
+
 
     public static function sheild($string, $first_length = Card::BIN_DIGITS_LEN, $last_length = Card::LAST_DIGITS_LEN, $replaceWith = "***")
     {
@@ -200,7 +200,7 @@ class InformationMasking
      *
      * @param  string  $string
      */
-    
+
      public static function phoneNumberMasking($phone_number)
      {
         $phone_number = Str::replace(' ', '', $phone_number);
@@ -211,30 +211,30 @@ class InformationMasking
         }
         return $masked_phone_number;
      }
-	 
+
 	 /**
 	  * OTP MASKING FROM STRING
 	  * @param string $string
 	  */
-	 
+
 	 public static function getOtpToMask(string $string): string
 	 {
 		 $otp_len = (new class { use OTPTrait; })->otp_length;
 		 $content = Str::replace(["\n","\r","\t"], "", $string);
 		 $matches = collect(Str::pregMatchAll('!\d+(?:\.\d+)?!', $content))->first();
-		 
+
 		 $raw_key = '';
 		 foreach ($matches as $match) {
-			 
+
 			 if(Str::len($match) == $otp_len && Str::preg_match('/^\d+$/', $match)){
 				 $raw_key = $match;
 				 break;
 			 }
-			 
+
 		 }
-		 
+
 		 return $raw_key;
-		 
+
 	 }
 
      public function getConcealableInformation()

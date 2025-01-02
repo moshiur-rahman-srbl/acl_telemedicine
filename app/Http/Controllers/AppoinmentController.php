@@ -78,6 +78,8 @@ class AppoinmentController extends Controller
 
 
 
+        // $view_data["doctors"] = $this->appointment->getDoctors(); // Example: fetching doctors
+        // $view_data["patients"] = $this->appointment->getPatients(); // Example: fetching patients
         return $view_data;
     }
 
@@ -113,7 +115,7 @@ class AppoinmentController extends Controller
         $view_data["cmsInfo"] = [
             'moduleTitle' => __("Operations"),
             'subModuleTitle' => __("Appoinment"),
-            'subTitle' => __("Appoinment View")
+            'subTitle' => __("Appoinment Edit")
         ];
         $view_data["statuses"] = $this->appointment->getStatuses();
         $view_data["model"] = $this->appointment->findById($id);
@@ -129,7 +131,7 @@ class AppoinmentController extends Controller
         // Pass data to the view
         return view('appoinment.view', $view_data);
     }
-    
+
     public function destroy(Request $request, $id)
     {
         if (!empty($request->action) && $request->action == Appoinment::MOVE_TO_TRASH) {

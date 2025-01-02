@@ -1,6 +1,7 @@
 @extends('layouts.adminca')
 @section('content')
 @include('partials.page_heading')
+
     @php
         $name_validation = \common\integration\BrandConfiguration::call([\common\integration\Brand\Configuration\Backend\BackendMix::class, "isFirstNameAndSurnameRequiredForUser"]);
     @endphp

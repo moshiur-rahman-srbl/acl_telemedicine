@@ -16,9 +16,7 @@
         <div class="ibox">
             <div class="ibox-head">
                 <div class="ibox-title">
-                    {{($cmsInfo['subModuleTitle'])}}
-                    <!-- {{__($cmsInfo['subModuleTitle'])}} -->
-                    {{__($cmsInfo['subTitle'])}}
+                    {{__($cmsInfo['subModuleTitle'])}}
                 </div>
             </div>
             <div class="ibox-body">
@@ -30,52 +28,52 @@
                             <div class="ibox">
                                 <div class="ibox-body">
                                     <div class="form-group {{$errors->has('doctor_id') ? 'has-error':''}}">
-                                        <label for="doctor_id">{{('Doctor ID')}}</label>
+                                        <label for="doctor_id">{{__('Doctor ID')}}</label>
                                         <input type="text" class="form-control" name="doctor_id" id="doctor_id"
-                                               placeholder="{{('Doctor ID')}}"
+                                               placeholder="{{__('Doctor ID')}}"
                                                value="{{ old('doctor_id') }}">
                                         @if($errors->has('doctor_id'))
-                                            <label class="help-block error">{{($errors->first('doctor_id'))}}</label>
+                                            <label class="help-block error">{{__($errors->first('doctor_id'))}}</label>
                                         @endif
                                     </div>
 
                                     <div class="form-group {{$errors->has('patient_id') ? 'has-error':''}}">
-                                        <label for="patient_id">{{('Patient ID')}}</label>
+                                        <label for="patient_id">{{__('Patient ID')}}</label>
                                         <input type="text" class="form-control" name="patient_id" id="patient_id"
-                                               placeholder="{{('Patient ID')}}" value="{{ old('patient_id') }}">
+                                               placeholder="{{__('Patient ID')}}" value="{{ old('patient_id') }}">
                                         @if($errors->has('patient_id'))
-                                            <label class="help-block error">{{($errors->first('patient_id'))}}</label>
+                                            <label class="help-block error">{{__($errors->first('patient_id'))}}</label>
                                         @endif
                                     </div>
 
                                     <div class="form-group {{$errors->has('appointment_date_time') ? 'has-error':''}}">
-                                        <label for="appointment_date_time">{{('Appointment Date & Time')}}</label>
+                                        <label for="appointment_date_time">{{__('Appointment Date & Time')}}</label>
                                         <input type="datetime-local" class="form-control" name="appointment_date_time"
                                                id="appointment_date_time"
                                                value="{{ old('appointment_date_time') }}">
                                         @if($errors->has('appointment_date_time'))
-                                            <label class="help-block error">{{($errors->first('appointment_date_time'))}}</label>
+                                            <label class="help-block error">{{__($errors->first('appointment_date_time'))}}</label>
                                         @endif
                                     </div>
 
                                     <div class="form-group {{$errors->has('notes') ? 'has-error':''}}">
-                                        <label for="notes">{{('Notes')}}</label>
+                                        <label for="notes">{{__('Notes')}}</label>
                                         <textarea class="form-control" name="notes" id="notes" rows="4"
-                                                  placeholder="{{('Enter any notes')}}">{{ old('notes') }}</textarea>
+                                                  placeholder="{{__('Enter any notes')}}">{{ old('notes') }}</textarea>
                                         @if($errors->has('notes'))
-                                            <label class="help-block error">{{($errors->first('notes'))}}</label>
+                                            <label class="help-block error">{{__($errors->first('notes'))}}</label>
                                         @endif
                                     </div>
 
                                     <div class="form-group {{$errors->has('status') ? 'has-error':''}}">
-                                        <label for="status">{{('Status')}}</label>
+                                        <label for="status">{{__('Status')}}</label>
                                         <select class="form-control" name="status" id="status">
                                             <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>{{ __('Scheduled') }}</option>
                                             <option value="2" {{ old('status') == 2 ? 'selected' : '' }}>{{ __('Completed') }}</option>
                                             <option value="3" {{ old('status') == 3 ? 'selected' : '' }}>{{ __('Cancelled') }}</option>
                                         </select>
                                         @if($errors->has('status'))
-                                            <label class="help-block error">{{($errors->first('status'))}}</label>
+                                            <label class="help-block error">{{__($errors->first('status'))}}</label>
                                         @endif
                                     </div>
 
@@ -86,7 +84,7 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary pull-right">{{('Save')}}</button>
+                                <button type="submit" class="btn btn-primary pull-right">{{__('Save')}}</button>
                             </div>
                         </div>
                     </div>

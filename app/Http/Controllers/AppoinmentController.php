@@ -53,9 +53,9 @@ class AppoinmentController extends Controller
             $appointment = $this->appointment->saveData($store_data);
 
             if (!empty($appointment)) {
-                flash(('Saved successfully!'), 'success');
+                flash(__('Saved successfully!'), 'success');
             } else {
-                flash(('Some Errors!'), 'danger');
+                flash(__('Some Errors!'), 'danger');
             }
             return redirect(route(Config::get('constants.defines.APP_APPOINMENT_INDEX')));
         }
@@ -99,9 +99,9 @@ class AppoinmentController extends Controller
             $appointment = $this->appointment->updateData($id, $update_data);
 
             if (!empty($appointment)) {
-                flash(('Update successfully!'), 'success');
+                flash(__('Update successfully!'), 'success');
             } else {
-                flash(('Some Errors!'), 'danger');
+                flash(__('Some Errors!'), 'danger');
             }
             return redirect(route(Config::get('constants.defines.APP_APPOINMENT_INDEX')));
         }
@@ -123,6 +123,7 @@ class AppoinmentController extends Controller
         // $view_data["patients"] = $this->appointment->getPatients(); // Example: fetching patients
         return $view_data;
     }
+
     public function view($id)
     {
         $appointment = $this->appointment->findOrFail($id);
@@ -134,6 +135,7 @@ class AppoinmentController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        dd($request->all(),$id);
         if (!empty($request->action) && $request->action == Appoinment::MOVE_TO_TRASH) {
             $ids = $request->input('ids', []);
         } else {
@@ -141,9 +143,9 @@ class AppoinmentController extends Controller
         }
         $appointment = $this->appointment->deleteData($ids);
         if ($appointment) {
-            flash(('Delete successfully!'), 'success');
+            flash(__('Delete successfully!'), 'success');
         } else {
-            flash(('Some Errors!'), 'danger');
+            flash(__('Some Errors!'), 'danger');
         }
         return redirect()->back();
     }

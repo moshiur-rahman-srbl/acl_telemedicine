@@ -64,7 +64,7 @@ use \common\integration\Utility\Str as UtilityStr;
 
 class User extends Authenticatable
 {
-    
+
     use Notifiable, SendEmailTrait, CommonLogTrait, OTPTrait, NotificationTrait, FileUploadTrait, ModelActivityTrait;
     const MOVE_TO_TRASH = "move_to_trash";
 
@@ -109,7 +109,7 @@ class User extends Authenticatable
     //     3 => 'Verified',
     //     4 => 'Contracted'
     // ];
-    const MOVE_TO_TRASH = "move_to_trash";
+
     const PENDING = 0;
     const ADMIN_VERIFIED = 1;
     const APPROVED = 1;
@@ -147,17 +147,7 @@ class User extends Authenticatable
     const WRONG_CAPTCHA_LOCK_TIME = 10;
 
 
-    public function handleSearch($input): array
-    {
-        $filters["page_limit"] = $input["page_limit"] ?? 10;
-        $filters["filter_key"] = $input["filter_key"] ?? '';
-        $filters["status"] = $input["status"] ?? '';
-        // $filters["doctor_id"] = $input["doctor_id"] ?? '';
-       
-        // $filters["start_date"] = $input["start_date"] ?? '';
-        // $filters["end_date"] = $input["end_date"] ?? '';
-        return $filters;
-    }
+
     public function getDoctors($filters = [], $paginate = false, $page_limit = 10)
     {
         $query = $this->filters($filters)->where("type",self::TYPE_DOCTOR);
@@ -183,8 +173,8 @@ class User extends Authenticatable
         if (!empty($filters["speciality"])) {
             $query->where("speciality", $filters["speciality"]);
         }
-        
-        
+
+
         return $query;
     }
     public function validateDoctors(): array
@@ -357,7 +347,7 @@ class User extends Authenticatable
         $filters["page_limit"] = $input["page_limit"] ?? 10;
         $filters["filter_key"] = $input["filter_key"] ?? '';
         $filters["status"] = $input["status"] ?? '';
-    
+
         $filters["start_date"] = $input["start_date"] ?? '';
         $filters["end_date"] = $input["end_date"] ?? '';
         return $filters;
@@ -367,28 +357,7 @@ class User extends Authenticatable
         $query = $this->filters($filters)->where('type',5);
         return $paginate ? $query->paginate($page_limit) : $query->get();
     }
-    private function filters($filters = [])
-    {
-        $query = self::query();
 
-      
-     
-
-        if (!empty($filters["start_date"]) && !empty($filters["end_date"])) {
-            $query->whereBetween('appointment_date', [$filters['start_date'], $filters['end_date']]);
-        }
-
-        if (!empty($filters["filter_key"])) {
-            $like_operator = "like";
-            $query->where(function ($q) use ($filters, $like_operator) {
-                $q->where('doctor_id', $like_operator, '%' . $filters["filter_key"] . '%')
-                    ->orWhere('patient_id', $like_operator, '%' . $filters["filter_key"] . '%')
-                    ->orWhere('status', $like_operator, '%' . $filters["filter_key"] . '%');
-            });
-        }
-
-        return $query;
-    }
     // public function validateData(): array
     // {
     //     $rules = [
@@ -416,7 +385,7 @@ class User extends Authenticatable
             "phone" => "required|string|max:50",
             "address" => "required|string|max:255",
         ];
-    
+
         $messages = [
             'name.required' => __("The name is required."),
         'name.max' => __("The name must not exceed 191 characters."),
@@ -428,10 +397,10 @@ class User extends Authenticatable
             'address.required' => __("The address is required."),
             'address.max' => __("The address must not exceed 255 characters."),
         ];
-    
+
         return [$rules, $messages];
     }
-    
+
     public function preparePatientData($input): array
     {
         return [
@@ -469,7 +438,7 @@ class User extends Authenticatable
     {
         return self::whereIn("id", (array)$ids)->delete();
     }
-    
+
 
 
     /**

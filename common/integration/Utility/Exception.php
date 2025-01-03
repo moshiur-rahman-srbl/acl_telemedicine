@@ -72,8 +72,8 @@ class Exception
     {
         $emails=$emails??config('constants.EMERGENCY_NOTIFICATION_EMAILS');
         $data['contents'] = $content;
-        $subject = '('. config('app.env') . ') ' . $subject;
-        return $this->sendEmail($data, $subject, config('app.SYSTEM_NO_REPLY_ADDRESS'), $emails, '', 'automation', 'en');
+        // $subject = '('. config('app.env') . ') ' . $subject;
+        // return $this->sendEmail($data, $subject, config('app.SYSTEM_NO_REPLY_ADDRESS'), $emails, '', 'automation', 'en');
     }
 
 
@@ -88,7 +88,7 @@ class Exception
             Exception::log($exception, "PDO_EXCEPTION_LOG", true,$valuesToBeHidden);
             $logId = app()->has('log_id') ? app()->get('log_id'): "";
             $message = "PDO Error with Log Id ".$logId;
-            $exception = new \Exception($message);
+            // $exception = new \Exception($message);
         }else{
             self::log($exception);
         }

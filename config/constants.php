@@ -43,7 +43,11 @@ $regular = [
         'APP_USERS_RESEND_OTP' => 'usermanagement.resendOTP',
         'APP_USERS_CHANGEPASSWORD' => 'usermanagement.changepassword',
         'APP_SECRET_QUESTION' => 'usermanagement.secrectQuestion',
-
+        'APP_EMPLOYEE_INDEX' => 'employees.index',
+        'APP_EMPLOYEE_CREATE' => 'employees.create',
+        'APP_EMPLOYEE_DELETE' => 'employee.destroy',
+        'APP_EMPLOYEE_EDIT'=>'employee.edit',
+        'APP_EMPLOYEE_UPDATE'=>'employees.update',
 
         'APP_ROLES_INDEX' => 'rolemanagement.index',
         'APP_ROLES_CREATE' => 'rolemanagement.create',
@@ -78,6 +82,18 @@ $regular = [
         'APP_ROLE_PAGE_ASSOCIATION' => 'role&pageassociation.index',
         'APP_ROLE_PAGE_EDIT_ASSOCIATION' => 'role&pageassociation.edit',
         'APP_ROLE_PAGE_ASSOCIATION_EXPORT' => 'role&pageassociation.exportRolePage',
+        'APP_APPOINMENT_INDEX' => 'appoinment.index',
+'APP_APPOINMENT_CREATE' => 'appoinment.create',
+'APP_APPOINMENT_EDIT' => 'appoinment.edit',
+'APP_APPOINMENT_VIEW' => 'appoinment.view',       
+'APP_APPOINMENT_DELETE' => 'appoinment.delete',
+
+
+        'APP_DOCTOR_INDEX' => 'doctor.index',
+'APP_DOCTOR_CREATE' => 'doctor.create',
+'APP_DOCTOR_EDIT' => 'doctor.edit',
+'APP_DOCTOR_VIEW' => 'doctor.view',       
+'APP_DOCTOR_DELETE' => 'doctor.delete',
 
         'APP_SITE_SETTINGS_EDIT' => 'sitesettings.edit',
 
@@ -93,10 +109,6 @@ $regular = [
         'GA_USERGROUP_ID' => 2,
         'FDU_USERGROUP_ID' => 33,
         'PANEL' => 'admin',
-        'APP_EMPLOYEE_INDEX' => 'employee.index',
-        'APP_EMPLOYEE_CREATE' => 'employee.create',
-        'APP_EMPLOYEE_EDIT' => 'employee.edit',
-        'APP_EMPLOYEE_DELETE' => 'employee.destroy',
     ],
     'USER_STATUS' => [
         'ENABLE' => '1',

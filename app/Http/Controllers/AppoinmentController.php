@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appoinment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
@@ -73,9 +74,8 @@ class AppoinmentController extends Controller
             'subTitle' => __("Appoinment Create")
         ];
         $view_data["statuses"] = $this->appointment->getStatuses();
-        $view_data["patients"] = $this->appointment->getPatients();
-        $view_data["doctors"] = $this->appointment->getDoctors();
-
+        $view_data["doctors"] = (new User())->getDoctors();
+        $view_data["patients"] = (new User())->getPatients();
 
 
         // $view_data["doctors"] = $this->appointment->getDoctors(); // Example: fetching doctors
@@ -119,8 +119,8 @@ class AppoinmentController extends Controller
         ];
         $view_data["statuses"] = $this->appointment->getStatuses();
         $view_data["model"] = $this->appointment->findById($id);
-        // $view_data["doctors"] = $this->appointment->getDoctors(); // Example: fetching doctors
-        // $view_data["patients"] = $this->appointment->getPatients(); // Example: fetching patients
+        $view_data["doctors"] = (new User())->getDoctors();
+        $view_data["patients"] = (new User())->getPatients();
         return $view_data;
     }
 
@@ -135,7 +135,7 @@ class AppoinmentController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        dd($request->all(),$id);
+        dd($request->all(), $id);
         if (!empty($request->action) && $request->action == Appoinment::MOVE_TO_TRASH) {
             $ids = $request->input('ids', []);
         } else {

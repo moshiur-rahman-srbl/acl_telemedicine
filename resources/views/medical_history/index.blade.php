@@ -6,7 +6,7 @@
         <div class="ibox">
             <div class="ibox-head">
                 <div class="ibox-title d-flex justify-content-between">
-                    <h3>{{ __('Medical Records') }}</h3>
+                    <h3>{{ __($cmsInfo['subTitle']) }}</h3>
                     <a href="{{ route(Config::get('constants.defines.APP_MEDICAL_RECORDS_CREATE')) }}" class="ml-3 btn btn-sm btn-primary pull-right">
                         <i class="fa fa-plus-circle"></i>&nbsp;{{ __('Add') }}
                     </a>
@@ -63,23 +63,7 @@
                                     <td class="text-center">
 
 
-                                        <a class="text-muted font-16 mr-1 ml-1" href="#"
-                                        onclick="event.preventDefault();
-                                                    if (confirm('Are you sure you want to delete this record?')) {
-                                                        document.getElementById('delete-form-{{ $record->id }}').submit();
-                                                    }">
-                                            <i class="ti-trash"></i>
-                                        </a>
-                                        <form id="delete-form-{{ $record->id }}" action="{{ route('medicalrecords.delete', $record->id) }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-
-                                        <a class="text-muted font-16 mr-1 ml-1" href="{{ route('medicalrecords.edit', $record->id) }}">
-                                            <i class="ti-pencil-alt"></i>
-                                        </a>
-
-                                        <a class="text-muted font-16 mr-1 ml-1" href="{{ route('medicalrecords.view', $record->id) }}">
+                                        <a class="text-muted font-16 mr-1 ml-1" href="{{ route(Config::get('constants.defines.APP_MEDICAL_HISTORIES_VIEW'), $record->id) }}">
                                             <i class="ti-eye"></i>
                                         </a>
                                     </td>

@@ -59,7 +59,7 @@
                         </form>
                     </div>
                 </div>
-                {{-- {{dd(session()->get('permittedRouteNames'))}} --}}
+{{--                 {{dd(session()->get('permittedRouteNames'))}}--}}
                 <div class="row">
                     <div id="datatable_wrapper"
                          class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer table-responsive">
@@ -94,8 +94,8 @@
                                         </label>
                                     </td>
                                     <td>{{ $model->id }}</td>
-                                    <td>{{ $model->doctor_id }}</td>
-                                    <td>{{ $model->patient_id }}</td>
+                                    <td>{{ $model->Doctor->name ?? '' }}</td>
+                                    <td>{{ $model->Patient->name ?? '' }}</td>
                                     <td>{{ $model->appointment_date_time }}</td>
                                     <td>{{ $model->notes }}</td>
                                     <td>
@@ -147,7 +147,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10">{{ __('No data found') }}</td>
+                                    <td colspan="100%">{{ __('No data found') }}</td>
                                 </tr>
                             @endforelse
                             </tbody>

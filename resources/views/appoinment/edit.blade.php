@@ -20,19 +20,30 @@
                             <div class="ibox">
                                 <div class="ibox-body">
                                     <div class="form-group {{$errors->has('doctor_id') ? 'has-error':''}}">
-                                        <label for="doctor_id">{{__('Doctor ID')}}</label>
-                                        <input type="text" class="form-control" name="doctor_id" id="doctor_id"
-                                               placeholder="{{__('Doctor ID')}}"
-                                               value="{{ $model->doctor_id }}">
+                                        <label for="doctor_id">{{__('Doctor ')}}</label>
+                                        <select class="form-control" name="doctor_id" id="doctor_id">
+                                            <option value="">{{__('Select Doctor ')}}</option>
+                                            @foreach($doctors as $doctor)
+                                                <option value="{{ $doctor->id }}" {{ old('doctor_id') == $doctor->id ? 'selected' : '' }}>
+                                                    {{ $doctor->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @if($errors->has('doctor_id'))
                                             <label class="help-block error">{{__($errors->first('doctor_id'))}}</label>
                                         @endif
                                     </div>
 
                                     <div class="form-group {{$errors->has('patient_id') ? 'has-error':''}}">
-                                        <label for="patient_id">{{__('Patient ID')}}</label>
-                                        <input type="text" class="form-control" name="patient_id" id="patient_id"
-                                               placeholder="{{__('Patient ID')}}" value="{{ $model->patient_id }}">
+                                        <label for="patient_id">{{__('Patient ')}}</label>
+                                        <select class="form-control" name="patient_id" id="patient_id">
+                                            <option value="">{{__('Select Patient ')}}</option>
+                                            @foreach($patients as $patient)
+                                                <option value="{{ $patient->id }}" {{ old('patient_id') == $patient->id ? 'selected' : '' }}>
+                                                    {{ $patient->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @if($errors->has('patient_id'))
                                             <label class="help-block error">{{__($errors->first('patient_id'))}}</label>
                                         @endif

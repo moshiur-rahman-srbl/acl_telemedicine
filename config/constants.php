@@ -49,10 +49,19 @@ $regular = [
         'APP_PRESCRIPTION_INDEX' => 'prescription.index',
         'APP_PRESCRIPTION_CREATE' => 'prescription.create',
         'APP_PRESCRIPTION_VIEW' => 'prescription.view',
-        'APP_PRESCRIPTION_EDIT' => 'prescriptions.edit',
+        'APP_PRESCRIPTION_EDIT' => 'prescription.edit',
         'APP_PRESCRIPTION_UPDATE' => 'prescription.update',
         'APP_PRESCRIPTION_DELETE' => 'prescription.delete',
 
+        'APP_PATIENT_INDEX' => 'patient.index',
+        'APP_PATIENT_CREATE' => 'patient.create',
+        'APP_PATIENT_VIEW' => 'patient.view',
+        'APP_PATIENT_EDIT' => 'patient.edit',
+        'APP_PATIENT_UPDATE' => 'patient.update',
+        'APP_PATIENT_DELETE' => 'patient.delete',
+
+        'APP_MEDICAL_HISTORIES_VIEW' => 'medicalhistory.view',
+        'APP_MEDICAL_HISTORIES_INDEX' => 'medicalhistory.index',
 
         'APP_MEDICAL_RECORDS_INDEX' => 'medicalrecords.index',
         'APP_MEDICAL_RECORDS_CREATE' => 'medicalrecords.create',
@@ -95,7 +104,10 @@ $regular = [
         'APP_ROLE_PAGE_EDIT_ASSOCIATION' => 'role&pageassociation.edit',
         'APP_ROLE_PAGE_ASSOCIATION_EXPORT' => 'role&pageassociation.exportRolePage',
         'APP_APPOINMENT_INDEX' => 'appoinment.index',
-
+        'APP_APPOINMENT_CREATE' => 'appoinment.create',
+        'APP_APPOINMENT_EDIT' => 'appoinment.edit',
+        'APP_APPOINMENT_VIEW' => 'appoinment.view',
+        'APP_APPOINMENT_DELETE' => 'appoinment.delete',
 
         'APP_DOCTOR_INDEX' => 'doctor.index',
         'APP_DOCTOR_CREATE' => 'doctor.create',

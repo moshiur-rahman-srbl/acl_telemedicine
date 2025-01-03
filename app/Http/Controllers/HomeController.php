@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appoinment;
 use App\Models\Bank;
 use App\Models\Customer;
 use App\Models\Deposit;
 use App\Models\Merchant;
 use App\Models\MerchantFraud;
+use App\Models\Prescription;
 use App\Models\Profile;
 use App\Models\Setting;
 use App\Models\Transaction;
@@ -180,8 +182,13 @@ class HomeController extends Controller
         $customers = collect();
         $withdrawal_redirect_routes = BrandConfiguration::getRedirectRouteDashboard('Withdrawals');
         $deposit_redirect_routes = BrandConfiguration::getRedirectRouteDashboard('Deposits');
+        $total_doctors = (new User())->getDoctors()->count();
+        $total_patients = (new User())->getPatients()->count();
+        $total_appointments = (new Appoinment())->count();
+        $total_doctors = (new User())->getDoctors()->count();
+        $total_prescriptions = (new Prescription())->count();
 
-        return view('front', compact('merchants', 'withdrawal_requests', 'deposit_requests', 'transactions', 'customers', 'withdrawal_redirect_routes', 'deposit_redirect_routes'));
+        return view('front', compact('merchants', 'withdrawal_requests', 'deposit_requests', 'transactions', 'customers', 'withdrawal_redirect_routes', 'deposit_redirect_routes','total_doctors', 'total_patients', 'total_appointments', 'total_prescriptions'));
     }
 
 

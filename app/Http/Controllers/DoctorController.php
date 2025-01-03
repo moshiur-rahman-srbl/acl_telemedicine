@@ -89,7 +89,7 @@ class DoctorController extends Controller
     ];
 
     // Pass doctor data to the view
-    $view_data['doctor'] = $doctor; 
+    $view_data['doctor'] = $doctor;
 
     return $view_data;
 }
@@ -104,7 +104,7 @@ class DoctorController extends Controller
         $input = $request->all();
 
         // Validation rules for the doctor fields
-        [$rule, $message] = $this->model->validateDoctors();
+        [$rule, $message] = $this->model->validateDoctors($id);
         $validate = Validator::make($input, $rule, $message);
 
         if ($validate->fails()) {
@@ -194,7 +194,7 @@ class DoctorController extends Controller
     }
 
 
-    // 
+    //
     public function destroy(Request $request, $id)
     {
         // dd($id,$request->all());    // Ensure $id is an array for bulk deletion or a single ID for individual deletion

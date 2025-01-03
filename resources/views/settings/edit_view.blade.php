@@ -72,12 +72,7 @@
                                                value="{{$settings_extra_data['full_company_name'] ?? ''}}" type="text"
                                                id="full_company_name" class="form-control" placeholder="{{__('Enter Full Company Name')}}" required/>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="btrns_company_code">{{__('BTRANS Company Code')}}</label>
-                                        <input name="btrns_company_code"
-                                               value="{{$settings_extra_data['btrns_company_code'] ?? ''}}" type="text"
-                                               id="btrns_company_code" class="form-control" placeholder="{{__('Enter BTRANS Company Code')}}" required/>
-                                    </div>
+
                                     <div class="form-group">
                                         <label for="tax_number">{{__('TAX Number')}}</label>
                                         <input name="tax_number"

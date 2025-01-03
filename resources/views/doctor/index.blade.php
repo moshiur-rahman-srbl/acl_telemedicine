@@ -11,8 +11,8 @@
 
                 <!-- <h3>{{ __('Appointments') }}</h3>
 
-                    
-                    
+
+
                     @if(auth()->user()->hasPermissionOnAction(Config::get('constants.defines.APP_APPOINMENT_CREATE')))
                         <a href="{{ route(Config::get('constants.defines.APP_APPOINMENT_CREATE')) }}"
                            class="ml-3 btn btn-sm btn-primary pull-right"><i
@@ -34,7 +34,7 @@
                             <select id="bulk_action" name="action"
                                 class="selectpicker show-tick form-control form-control-sm">
                                 <option value="">{{ __("Bulk Action") }}</option>
-                                
+
                             </select>
                             <span class="input-group-btn">
                                 <button id="bulk-action-apply" type="button"
@@ -72,7 +72,7 @@
                                     </label>
                                 </th>
                                 <th>{{ __('ID') }}</th>
-                                
+
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('License Number') }}</th>
@@ -80,7 +80,7 @@
                                 <th>{{ __('Experience Years') }}</th>
                                 <th>{{ __('Created At') }}</th>
                                 <th>{{ __('Updated At') }}</th>
-                                <th class="text-center">{{ __('Actionssss') }}</th>
+                                <th class="text-center">{{ __('Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,7 +94,7 @@
                                     </label>
                                 </td>
                                 <td>{{ $model->id}}</td>
-                                
+
                                 <td>{{ $model->name}}</td>
                                 <td>{{ $model->email}}</td>
                                 <td>{{ $model->license_number}}</td>
@@ -128,7 +128,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="10">{{ __('No data found') }}</td>
+                                <td colspan="100%">{{ __('No data found') }}</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -188,7 +188,7 @@
             }
         });
 
-       
+
     });
 </script>
 @endpush

@@ -175,4 +175,15 @@ class Appoinment extends Model
 
         return [$rules, $messages];
     }
+
+
+    public function Patient()
+    {
+        return $this->belongsTo(User::class, 'patient_id');
+    }
+
+    public function Doctor()
+    {
+        return $this->belongsTo(User::class, 'doctor_id');
+    }
 }

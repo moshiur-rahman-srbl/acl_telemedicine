@@ -173,24 +173,28 @@ class User extends Authenticatable
             $query->where("speciality", $filters["speciality"]);
         }
 
-
+        if (!empty($filters["filter_key"])) {
+            $like_operator = "like";
+            $query->where(function ($q) use ($filters, $like_operator) {
+                $q->where('name', $like_operator, '%' . $filters['filter_key'] . '%')
+                    ->orWhere('license_number', $like_operator, '%' . $filters["filter_key"] . '%')
+                    ->orWhere('email', $like_operator, '%' . $filters["filter_key"] . '%');
+            });
+        }
         return $query;
     }
-    public function validateDoctors(): array
+    public function validateDoctors($id = null): array
     {
         $rules = [
             //"status" => "required|string|in:1,2,3",
             // "doctor_id" => "required|integer|exists:users,id",
             "name" => "required|string|max:180|min:6",
-            "email" => "required|email|max:150|min:4",
+            "email" => "required|email|unique:users,email|max:150|min:4",
         ];
-
-        $messages = [
-            'status.required' => __("The status is required."),
-            // 'doctor_id.required' => __("The doctor is required."),
-            // 'patient_id.required' => __("The patient is required."),
-            // 'appointment_date.after' => __("The appointment date must be in the future."),
-        ];
+        if(!empty($id)){
+            $rules['email'] = 'required|email|unique:users,email,' . $id;
+        }
+        $messages = [];
 
         return [$rules, $messages];
     }
@@ -345,7 +349,9 @@ class User extends Authenticatable
     {
         $filters["page_limit"] = $input["page_limit"] ?? 10;
         $filters["filter_key"] = $input["filter_key"] ?? '';
-        $filters["status"] = $input["status"] ?? '';
+        $filters["name"] = $input["name"] ?? '';
+        $filters["email"] = $input["email"] ?? '';
+        $filters["license_number"] = $input["license_number"] ?? '';
 
         $filters["start_date"] = $input["start_date"] ?? '';
         $filters["end_date"] = $input["end_date"] ?? '';
@@ -353,7 +359,7 @@ class User extends Authenticatable
     }
     public function getPatients($filters = [], $paginate = false, $page_limit = 10)
     {
-        $query = $this->filters($filters)->where('type',5);
+        $query = $this->filters($filters)->where('type',self::TYPE_PATIENT);
         return $paginate ? $query->paginate($page_limit) : $query->get();
     }
 
@@ -376,7 +382,7 @@ class User extends Authenticatable
     //     return [$rules, $messages];
     // }
 
-    public function validateData(): array
+    public function validateData($id=null): array
     {
         $rules = [
             "name" => "required|string|max:191",
@@ -384,18 +390,11 @@ class User extends Authenticatable
             "phone" => "required|string|max:50",
             "address" => "required|string|max:255",
         ];
+        if(!empty($id)){
+            $rules['email'] = 'required|email|unique:users,email,' . $id;
+        }
 
-        $messages = [
-            'name.required' => __("The name is required."),
-        'name.max' => __("The name must not exceed 191 characters."),
-        'email.required' => __("The email is required."),
-        'email.email' => __("The email must be a valid email address."),
-        'email.unique' => __("The email has already been taken."),
-            'phone.required' => __("The phone number is required."),
-            'phone.digits_between' => __("The phone number must not exceed 50 characters."),
-            'address.required' => __("The address is required."),
-            'address.max' => __("The address must not exceed 255 characters."),
-        ];
+        $messages = [];
 
         return [$rules, $messages];
     }
@@ -403,8 +402,7 @@ class User extends Authenticatable
     public function preparePatientData($input): array
     {
         return [
-            "type" => 5,
-
+            "type" => self::TYPE_PATIENT,
             "name" => $input["name"],
             "email" => $input["email"],
             "phone" => $input["phone"],

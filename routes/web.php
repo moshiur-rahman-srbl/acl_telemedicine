@@ -102,30 +102,9 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::delete('pages/destroy/{id}', 'PageController@destroy')->name(Config::get('constants.defines.APP_PAGES_DELETE'));
 
 
-
-        //new added
-        
-        // //index.blade.route
-        // Route::get('prescriptions', [OperatorprescriptionController::class, 'index'])->name('prescriptions.index');
-        // Route::get('prescriptions', [OperatorprescriptionController::class, 'index'])->name(config('constants.defines.APP_PRESCRIPTION_INDEX'));
-
-        // //create.blade.route
-        // Route::match(['get', 'post'], 'prescription/add', [OperatorprescriptionController::class, 'create'])->name(config('constants.defines.APP_PRESCRIPTION_CREATE'));
-      
-        // Route::post('/prescriptions', [OperatorprescriptionController::class, 'store'])->name('prescriptions.store');
-
-        // //edit.blade.route
-        // Route::match(['get', 'post'], 'prescriptions/edit/{id}', 'OperatorprescriptionController@edit')->name(config::get('constants.defines.APP_PRESCRIPTION_EDIT'));
-        // Route::post('/prescriptions/{id}/update', [OperatorprescriptionController::class, 'update'])->name('prescriptions.update');
-
-        // //delete
-        // Route::delete('/prescriptions/{id}/delete', [OperatorprescriptionController::class, 'delete'])->name('prescriptions.delete');
-        // //view
-        // Route::get('/prescriptions/{id}/view', 'OperatorprescriptionController@view')->name(Config::get('constants.defines.APP_PRESCRIPTION_VIEW'));
-        // Route::get('/prescriptions/{id}', [OperatorprescriptionController::class, 'view'])->name('prescriptions.view');
-
-
-
+        //        Routes:Prescriptions
+        Route::match(['get', 'post'], 'prescriptions/edit/{id}', 'OperatorprescriptionController@edit')->name(config::get('constants.defines.APP_PRESCRIPTION_EDIT'));
+        Route::post('/prescriptions/{id}/update', [OperatorprescriptionController::class, 'update'])->name('prescriptions.update');
 
         Route::get('prescriptions', 'OperatorprescriptionController@index')->name(config::get('constants.defines.APP_PRESCRIPTION_INDEX'));
         Route::match(['get', 'post'], '/prescriptions/create', 'OperatorprescriptionController@create')->name(config::get('constants.defines.APP_PRESCRIPTION_CREATE'));
@@ -154,7 +133,7 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::get('logs', 'LogsController@index')->name(Config::get('constants.defines.APP_LOGS_INDEX'));
 
 
-        //settings
+//        Routes: Doctors
 
         Route::get('doctor', 'DoctorController@index')->name(config::get('constants.defines.APP_DOCTOR_INDEX'));
         Route::match(['get', 'post'], '/doctor/create', 'DoctorController@create')->name(config::get('constants.defines.APP_DOCTOR_CREATE'));
@@ -165,6 +144,8 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
 
         Route::match(['get', 'post'], 'settings/edit', 'SettingController@edit')->name(Config::get('constants.defines.APP_SITE_SETTINGS_EDIT'));
 
+
+//        Routes: Appointments
         Route::get('appoinment', 'AppoinmentController@index')->name(config::get('constants.defines.APP_APPOINMENT_INDEX'));
         Route::match(['get', 'post'], '/appoinment/create', 'AppoinmentController@create')->name(config::get('constants.defines.APP_APPOINMENT_CREATE'));
         Route::match(['get', 'post'], 'appoinment/edit/{id}', 'AppoinmentController@edit')->name(Config::get('constants.defines.APP_APPOINMENT_EDIT'));
@@ -173,19 +154,30 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::get('/appoinment/{id}/view', 'AppoinmentController@view')->name(Config::get('constants.defines.APP_APPOINMENT_VIEW'));
 
 
+//        Routes: Medical Records
+        Route::get('medical_histories', 'MedicalHistoryController@index')->name(Config::get('constants.defines.APP_MEDICAL_HISTORIES_INDEX'));
+        Route::get('/medical_histories/{id}/view', 'MedicalHistoryController@view')->name(Config::get('constants.defines.APP_MEDICAL_HISTORIES_VIEW'));
 
-        Route::get('medical_records', 'MedicalRecordsController@index')->name(config::get('constants.defines.APP_MEDICAL_RECORDS_INDEX'));
+
+        Route::get('medical_records', 'MedicalRecordsController@index')->name(Config::get('constants.defines.APP_MEDICAL_RECORDS_INDEX'));
         Route::match(['get', 'post'], '/medical_records/create', 'MedicalRecordsController@create')->name(config::get('constants.defines.APP_MEDICAL_RECORDS_CREATE'));
         Route::match(['get', 'post'], 'medical_records/edit/{id}', 'MedicalRecordsController@edit')->name(Config::get('constants.defines.APP_MEDICAL_RECORDS_EDIT'));
         Route::delete('medical_records/destroy/{id}', 'MedicalRecordsController@destroy')->name(Config::get('constants.defines.APP_MEDICAL_RECORDS_DELETE'));
 
         Route::get('/medical_records/{id}/view', 'MedicalRecordsController@view')->name(Config::get('constants.defines.APP_MEDICAL_RECORDS_VIEW'));
 
+//        Routes: Patients
+        Route::get('patient', 'PatientController@index')->name(config::get('constants.defines.APP_PATIENT_INDEX'));
+        Route::match(['get', 'post'], '/patient/create', 'PatientController@create')->name(config::get('constants.defines.APP_PATIENT_CREATE'));
+        Route::match(['get', 'post'], 'patient/edit/{id}', 'PatientController@edit')->name(Config::get('constants.defines.APP_PATIENT_EDIT'));
+        Route::delete('patient/destroy/{id}', 'PatientController@destroy')->name(Config::get('constants.defines.APP_PATIENT_DELETE'));
+        Route::get('/patient/{id}/view', 'PatientController@view')->name(Config::get('constants.defines.APP_PATIENT_VIEW'));
+
 
     });
 });
 Route::get('lang/{locale}', 'LocalizationController@index')->name('lang');
-Route::get('get-file/{type}/{ref_id}/{column}','HomeController@getFile')->middleware('auth')->name('get_secure_file');
-Route::get('/download/generated/{encrypted_link}','HomeController@getLink')->prefix(config('constants.defines.ADMIN_URL_SLUG'))->middleware('auth')->name('generated_link');
+Route::get('get-file/{type}/{ref_id}/{column}', 'HomeController@getFile')->middleware('auth')->name('get_secure_file');
+Route::get('/download/generated/{encrypted_link}', 'HomeController@getLink')->prefix(config('constants.defines.ADMIN_URL_SLUG'))->middleware('auth')->name('generated_link');
 
 

@@ -61,7 +61,7 @@ class PatientController extends Controller
         }
 
         $view_data = $this->getCreateViewData();
-     
+
         return view("patient.create", $view_data);
     }
 
@@ -80,9 +80,9 @@ class PatientController extends Controller
     public function edit(Request $request, $id)
     {
         if ($request->isMethod("POST")) {
-
+            $patient = $this->patient->findOrFail($id);
             $input = $request->all();
-            [$rule, $message] = $this->patient->validateData();
+            [$rule, $message] = $this->patient->validateData($id);
             $validate = Validator::make($input, $rule, $message);
             if ($validate->fails()) {
                 flash(($validate->errors()->first()), 'danger');
@@ -90,9 +90,9 @@ class PatientController extends Controller
             }
 
             $update_data = $this->patient->preparePatientData($input);
-            $patient = $this->patient->updateData($id, $update_data);
+            $doctorUpdated = $patient->updateData($id, $update_data);
 
-            if (!empty($patient)) {
+            if (!empty($doctorUpdated)) {
                 flash(('Update successfully!'), 'success');
             } else {
                 flash(('Some Errors!'), 'danger');

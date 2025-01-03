@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appoinment;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -18,12 +19,10 @@ class OperatorprescriptionController extends Controller
     }
 
     public function index(Request $request)
-    {   
-        $prescriptions = Prescription::all();
-       // $input = $request->all();
-       // $view_data = $this->getIndexViewData($input);
-        $view_data = $this->getIndexViewData($prescriptions);
-        return view("prescriptions.index", $view_data,compact('prescriptions'));
+    {
+        $input = $request->all();
+        $view_data = $this->getIndexViewData($input);
+        return view("prescriptions.index", $view_data);
     }
 
     public function getIndexViewData($input): array
@@ -34,7 +33,8 @@ class OperatorprescriptionController extends Controller
             'subTitle' => __("Prescription List")
         ];
         //$view_data["filters"] = $this->prescription->handleSearch($input);
-        $view_data["models"] = (new Prescription())->getAll($view_data);
+        $view_data["filters"] = $filters = $this->prescription->handleSearch($input);
+        $view_data["prescriptions"] = (new Prescription())->getAll($filters);
         $view_data["page_limit"] = $view_data;
         return $view_data;
     }
@@ -42,12 +42,9 @@ class OperatorprescriptionController extends Controller
     public function create(Request $request)
     {
         if ($request->isMethod("POST")) {
-
             $input = $request->all();
             $rule = [
                 'appointment_id' => 'required|integer',
-                'doctor_id' => 'required|integer',
-                'prescription_id' => 'required|integer',
                 'prescription_date' => 'required|date',
                 'medications' => 'required|string',
                 'instructions' => 'nullable|string',
@@ -65,7 +62,7 @@ class OperatorprescriptionController extends Controller
         }
 
         $view_data = $this->getCreateViewData();
-        
+
         return view("prescriptions.create", $view_data);
     }
 
@@ -76,10 +73,10 @@ class OperatorprescriptionController extends Controller
             'subModuleTitle' => __("Prescription Management"),
             'subTitle' => __("Create Prescription")
         ];
-        $view_data["appointments"] = $this->prescription->getPrescriptions();
-        //$view_data["appointments"] = $this->prescription->getAppointments();
-        $view_data["doctors"] = $this->prescription->getdoctors();
-        $view_data["prescriptions"] = $this->prescription->getprescriptions();
+        $view_data["appointments"] = Appoinment::all();
+        $view_data["doctors"] = (new User())->getDoctors();
+        $view_data["patients"] = (new User())->getPatients();
+        $view_data["prescriptions"] = $this->prescription->getAll();
         return $view_data;
     }
 
@@ -90,8 +87,6 @@ class OperatorprescriptionController extends Controller
             $input = $request->all();
             $rule = [
                 'appointment_id' => 'required|integer',
-                'doctor_id' => 'required|integer',
-                'prescription_id' => 'required|integer',
                 'prescription_date' => 'required|date',
                 'medications' => 'required|string',
                 'instructions' => 'nullable|string',
@@ -110,7 +105,7 @@ class OperatorprescriptionController extends Controller
         }
 
         $view_data = $this->getEditViewData($id);
-        return redirect(route(Config::get('constants.defines.APP_PRESCRIPTION_INDEX')));
+        return view("prescriptions.edit", $view_data);
     }
 
     public function getEditViewData($id): array
@@ -120,9 +115,11 @@ class OperatorprescriptionController extends Controller
             'subModuleTitle' => __("Prescription Management"),
             'subTitle' => __("Edit Prescription")
         ];
-        $view_data["doctors"] = $this->prescription->getdoctors();
-        $view_data["patients"] = $this->prescription->getPatients();
+        $view_data["doctors"] = (new User())->getDoctors();
+        $view_data["patients"] = (new User())->getPatients();
+        $view_data["prescriptions"] = $this->prescription->getAll();
         $view_data["prescription"] = Prescription::findOrFail($id);
+        $view_data["appointments"] = Appoinment::all();
         return $view_data;
     }
 

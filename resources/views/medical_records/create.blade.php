@@ -51,7 +51,7 @@
                                             <label class="help-block error">{{__($errors->first('doctor_id'))}}</label>
                                         @endif
                                     </div>
-                                   
+
                                     {{-- <div class="form-group {{$errors->has('patient_id') ? 'has-error':''}}">
                                         <label for="patient_id">{{__('Patient')}}</label>
                                         <select class="form-control" name="patient_id" id="patient_id">
@@ -81,13 +81,19 @@
                                     </div>--}}
 
                                     <div class="form-group {{$errors->has('patient_id') ? 'has-error':''}}">
-                                        <label for="patient_id">{{ __('Patient ID') }}</label>
-                                        <input type="text" class="form-control" name="patient_id" id="patient_id"
-                                               placeholder="{{ __('Enter Patient ID') }}" value="{{ old('patient_id') }}">
+                                        <label for="patient_id">{{__('Patient ')}}</label>
+                                        <select class="form-control" name="patient_id" id="patient_id">
+                                            <option value="">{{__('Select Patient ')}}</option>
+                                            @foreach($patients as $patient)
+                                                <option value="{{ $patient->id }}" {{ old('patient_id') == $patient->id ? 'selected' : '' }}>
+                                                    {{ $patient->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                         @if($errors->has('patient_id'))
-                                            <label class="help-block error">{{ $errors->first('patient_id') }}</label>
+                                            <label class="help-block error">{{__($errors->first('patient_id'))}}</label>
                                         @endif
-                                    </div> 
+                                    </div>
 
 
                                     <div class="form-group {{$errors->has('record_date') ? 'has-error':''}}">
@@ -117,13 +123,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="form-group {{$errors->has('attachments') ? 'has-error':''}}">
-                                        <label for="attachments">{{ __('Attachments') }}</label>
-                                        <input type="file" class="form-control" name="attachments" id="attachments">
-                                        @if($errors->has('attachments'))
-                                            <label class="help-block error">{{ $errors->first('attachments') }}</label>
-                                        @endif
-                                    </div>
+
 
                                 </div>
                             </div>

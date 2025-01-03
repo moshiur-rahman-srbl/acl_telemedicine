@@ -120,7 +120,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9">{{ __('No data found') }}</td>
+                                    <td colspan="100%">{{ __('No data found') }}</td>
                                 </tr>
                             @endforelse
                             </tbody>

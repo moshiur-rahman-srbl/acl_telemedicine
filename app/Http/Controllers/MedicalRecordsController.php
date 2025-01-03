@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MedicalRecords;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
@@ -59,7 +60,8 @@ class MedicalRecordsController extends Controller
             'subModuleTitle' => __("Medical Records"),
             'subTitle' => __("Create Medical Record"),
         ],
-            "doctors" => $this->medicalRecord->getDoctors(),
+            "doctors" => (new User())->getDoctors(),
+            "patients" => (new User())->getPatients(),
     ]);
     }
 
@@ -86,11 +88,12 @@ class MedicalRecordsController extends Controller
             'moduleTitle' => __("Operations"),
             'subModuleTitle' => __("Medical Records"),
             'subTitle' => __("Edit Medical Record"),
-        ], 
+        ],
         "record" => $this->medicalRecord->findById($id), // Updated key to "record"
-        "doctors" => $this->medicalRecord->getDoctors(),
-    
-    
+        "doctors" => (new User())->getDoctors(),
+        "patients" => (new User())->getPatients(),
+
+
     ]);
     }
 
@@ -103,11 +106,13 @@ class MedicalRecordsController extends Controller
         ];
         // $view_data["statuses"] = $this->medicalRecord->getStatuses();
         $view_data["model"] = $this->medicalRecord->findById($id);
+        $view_data["doctors"] = (new User())->getDoctors();
+        $view_data["patients"] = (new User())->getPatients();
         // $view_data["doctors"] = $this->appointment->getDoctors(); // Example: fetching doctors
         // $view_data["patients"] = $this->appointment->getPatients(); // Example: fetching patients
         return $view_data;
     }
-    
+
     public function view($id)
     {
         $record = $this->medicalRecord->findOrFail($id);

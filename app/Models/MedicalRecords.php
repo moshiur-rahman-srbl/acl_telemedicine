@@ -19,10 +19,7 @@ class MedicalRecords extends Model
         return $paginate ? $query->paginate($page_limit) : $query->get();
     }
 
-    public function getDoctors($filters = [], $paginate = false, $page_limit = 10)
-    {
-        return User::query()->where('type',5)->get();
-    }
+
 
     /**
      * Save a new medical record.
@@ -119,7 +116,7 @@ class MedicalRecords extends Model
             "doctor_id" => $input["doctor_id"],
             "patient_id" => $input["patient_id"],
             "record_date" => $input["record_date"],
-            "diagnosis" => $input["diagnosis"] ?? '', // Optional
+            "diagnosis" => $input["diagonosis"] ?? '', // Optional
             "treatments" => $input["treatments"] ?? '', // Optional
             "attachments" => $input["attachments"] ?? '', // Optional
         ];
@@ -147,5 +144,15 @@ class MedicalRecords extends Model
         ];
 
         return [$rules, $messages];
+    }
+
+    public function Patient()
+    {
+        return $this->belongsTo(User::class, 'patient_id');
+    }
+
+    public function Doctor()
+    {
+        return $this->belongsTo(User::class, 'doctor_id');
     }
 }

@@ -12,7 +12,7 @@
                     <div class="card-body flexbox-b">
                         <i class="fa fa-users fa-3x text-success fa_circle_border"></i>
                         <div>
-                            <h3 class="font-strong text-success">15</h3>
+                            <h3 class="font-strong text-success">{{$total_doctors}}</h3>
                             <div class="text-muted">{{__('Doctors')}}</div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="card-body flexbox-b">
                         <i class="fa fa-globe fa-3x text-purple fa_circle_border"></i>
                         <div>
-                            <h3 class="font-strong text-primary">10</h3>
+                            <h3 class="font-strong text-primary">{{$total_patients}}</h3>
                             <div class="text-muted">{{__('Patients')}}</div>
                         </div>
                     </div>
@@ -103,8 +103,8 @@
                     <div class="card-body flexbox-b">
                         <i class="fa fa-globe fa-3x fa_circle_border" style="color:#F39C12; "></i>
                         <div>
-                            <h3 class="font-strong" style="color:#F39C12;">10</h3>
-                            <div class="text-muted">{{__('Services')}}</div>
+                            <h3 class="font-strong" style="color:#F39C12;">{{$total_appointments}}</h3>
+                            <div class="text-muted">{{__('Appointments')}}</div>
                         </div>
                     </div>
                     <table class="table table-head-yellow">
@@ -148,8 +148,8 @@
                     <div class="card-body flexbox-b">
                         <i class="fa fa-globe fa-3x fa_circle_border" style="color:#f75a5f; "></i>
                         <div>
-                            <h3 class="font-strong" style="color:#f75a5f; ">----</h3>
-                            <div class="text-muted">{{__('Appointments')}}</div>
+                            <h3 class="font-strong" style="color:#f75a5f; ">{{$total_prescriptions}}</h3>
+                            <div class="text-muted">{{__('Prescriptions')}}</div>
                         </div>
                     </div>
                     <table class="table table-head-red">

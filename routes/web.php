@@ -13,6 +13,8 @@
 
 
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OperatorprescriptionController;
 
 Route::get('/config-cache', function () {
 //    dd(Session::get('permittedRouteNames'));
@@ -57,7 +59,7 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::match(['get', 'post'], 'secret-question', 'UserController@secrectQuestion')->name(Config::get('constants.defines.APP_SECRET_QUESTION'));
     });
 
-    Route::group(['middleware' => ['auth', 'permission', 'TwoFA', 'VisitorLog', 'passCheckr']], function () {
+    Route::group(['middleware' => ['auth', 'TwoFA', 'VisitorLog', 'passCheckr']], function () {
 
         Route::get('profile/edit/{id}', 'UserController@profileEdit')->name('profile.edit.get');
         Route::post('profile/edit/{id}', 'UserController@profileEdit')->name('profile.edit.post');
@@ -98,6 +100,38 @@ Route::group(['prefix' => config('constants.defines.ADMIN_URL_SLUG')], function 
         Route::match(['get', 'post'], 'pages/add', 'PageController@create')->name(Config::get('constants.defines.APP_PAGES_CREATE'));
         Route::match(['get', 'post'], 'pages/edit/{id}', 'PageController@edit')->name(Config::get('constants.defines.APP_PAGES_EDIT'));
         Route::delete('pages/destroy/{id}', 'PageController@destroy')->name(Config::get('constants.defines.APP_PAGES_DELETE'));
+
+
+
+        //new added
+        
+        // //index.blade.route
+        // Route::get('prescriptions', [OperatorprescriptionController::class, 'index'])->name('prescriptions.index');
+        // Route::get('prescriptions', [OperatorprescriptionController::class, 'index'])->name(config('constants.defines.APP_PRESCRIPTION_INDEX'));
+
+        // //create.blade.route
+        // Route::match(['get', 'post'], 'prescription/add', [OperatorprescriptionController::class, 'create'])->name(config('constants.defines.APP_PRESCRIPTION_CREATE'));
+      
+        // Route::post('/prescriptions', [OperatorprescriptionController::class, 'store'])->name('prescriptions.store');
+
+        // //edit.blade.route
+        // Route::match(['get', 'post'], 'prescriptions/edit/{id}', 'OperatorprescriptionController@edit')->name(config::get('constants.defines.APP_PRESCRIPTION_EDIT'));
+        // Route::post('/prescriptions/{id}/update', [OperatorprescriptionController::class, 'update'])->name('prescriptions.update');
+
+        // //delete
+        // Route::delete('/prescriptions/{id}/delete', [OperatorprescriptionController::class, 'delete'])->name('prescriptions.delete');
+        // //view
+        // Route::get('/prescriptions/{id}/view', 'OperatorprescriptionController@view')->name(Config::get('constants.defines.APP_PRESCRIPTION_VIEW'));
+        // Route::get('/prescriptions/{id}', [OperatorprescriptionController::class, 'view'])->name('prescriptions.view');
+
+
+
+
+        Route::get('prescriptions', 'OperatorprescriptionController@index')->name(config::get('constants.defines.APP_PRESCRIPTION_INDEX'));
+        Route::match(['get', 'post'], '/prescriptions/create', 'OperatorprescriptionController@create')->name(config::get('constants.defines.APP_PRESCRIPTION_CREATE'));
+        Route::match(['get', 'post'], 'prescriptions/edit/{id}', 'OperatorprescriptionController@edit')->name(Config::get('constants.defines.APP_PRESCRIPTION_EDIT'));
+        Route::delete('prescriptions/destroy/{id}', 'OperatorprescriptionController@destroy')->name(Config::get('constants.defines.APP_PRESCRIPTION_DELETE'));
+        Route::get('/prescriptions/{id}/view', 'OperatorprescriptionController@view')->name(Config::get('constants.defines.APP_PRESCRIPTION_VIEW'));
 
 
         Route::match(['get', 'post'], 'usergrouproles', 'UsergroupRoleController@index')->name(Config::get('constants.defines.APP_USERGROUP_ROLE_ASSOCIATION'));

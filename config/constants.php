@@ -2,7 +2,7 @@
 
 use common\integration\Brand\Configuration\All\Mix;
 use common\integration\BrandConfiguration;
-
+use App\Http\Controllers\EmployeeController;
 
 $brands = include('brand.php');
 
@@ -43,8 +43,21 @@ $regular = [
         'APP_USERS_RESEND_OTP' => 'usermanagement.resendOTP',
         'APP_USERS_CHANGEPASSWORD' => 'usermanagement.changepassword',
         'APP_SECRET_QUESTION' => 'usermanagement.secrectQuestion',
+        
+        //new added
+       
+        'APP_PRESCRIPTION_INDEX' => 'prescription.index',
+        'APP_PRESCRIPTION_CREATE' => 'prescription.create',
+        'APP_PRESCRIPTION_VIEW' => 'prescription.view',
+        'APP_PRESCRIPTION_EDIT' => 'prescriptions.edit',
+        'APP_PRESCRIPTION_UPDATE' => 'prescription.update',
+        'APP_PRESCRIPTION_DELETE' => 'prescription.delete',
 
 
+       
+        
+
+        
         'APP_ROLES_INDEX' => 'rolemanagement.index',
         'APP_ROLES_CREATE' => 'rolemanagement.create',
         'APP_ROLES_EDIT' => 'rolemanagement.edit',
@@ -93,10 +106,6 @@ $regular = [
         'GA_USERGROUP_ID' => 2,
         'FDU_USERGROUP_ID' => 33,
         'PANEL' => 'admin',
-        'APP_EMPLOYEE_INDEX' => 'employee.index',
-        'APP_EMPLOYEE_CREATE' => 'employee.create',
-        'APP_EMPLOYEE_EDIT' => 'employee.edit',
-        'APP_EMPLOYEE_DELETE' => 'employee.destroy',
     ],
     'USER_STATUS' => [
         'ENABLE' => '1',

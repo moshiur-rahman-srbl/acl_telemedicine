@@ -64,7 +64,9 @@ use \common\integration\Utility\Str as UtilityStr;
 
 class User extends Authenticatable
 {
+    
     use Notifiable, SendEmailTrait, CommonLogTrait, OTPTrait, NotificationTrait, FileUploadTrait, ModelActivityTrait;
+    const MOVE_TO_TRASH = "move_to_trash";
 
     const CUSTOMER = 0;
     const ADMIN = 1;
@@ -256,6 +258,125 @@ class User extends Authenticatable
             }
         });
     }
+
+
+    //new added
+    public function handleSearch($input): array
+    {
+        $filters["page_limit"] = $input["page_limit"] ?? 10;
+        $filters["filter_key"] = $input["filter_key"] ?? '';
+        $filters["status"] = $input["status"] ?? '';
+    
+        $filters["start_date"] = $input["start_date"] ?? '';
+        $filters["end_date"] = $input["end_date"] ?? '';
+        return $filters;
+    }
+
+    // public function getPrescriptions($filters = [], $paginate = false, $page_limit = 10)
+    // {
+    //     $query = $this->where('id',$prescription)->first();
+     
+    //    return $paginate ? $query->paginate($page_limit) : $query->get();
+    // }
+    // public function getAppointments($filters = [], $paginate = false, $page_limit = 10)
+    // {
+    //     $query = $this->get()
+    //     return $query;
+    //     return $paginate ? $query->paginate($page_limit) : $query->get();
+    // }
+    public function getDoctors($filters = [], $paginate = false, $page_limit = 10)
+    {
+        $query = $this->filters($filters)->where('type',2);
+        return $paginate ? $query->paginate($page_limit) : $query->get();
+    }
+    public function getPatients($filters = [], $paginate = false, $page_limit = 10)
+    {
+        $query = $this->filters($filters)->where('type',5);
+        return $paginate ? $query->paginate($page_limit) : $query->get();
+    }
+
+
+    private function filters($filters = [])
+    {
+        $query = self::query();
+
+      
+     
+
+        if (!empty($filters["start_date"]) && !empty($filters["end_date"])) {
+            $query->whereBetween('appointment_date', [$filters['start_date'], $filters['end_date']]);
+        }
+
+        if (!empty($filters["filter_key"])) {
+            $like_operator = "like";
+            $query->where(function ($q) use ($filters, $like_operator) {
+                $q->where('doctor_id', $like_operator, '%' . $filters["filter_key"] . '%')
+                    ->orWhere('patient_id', $like_operator, '%' . $filters["filter_key"] . '%')
+                    ->orWhere('status', $like_operator, '%' . $filters["filter_key"] . '%');
+            });
+        }
+
+        return $query;
+    }
+    public function validateData(): array
+    {
+        $rules = [
+            //"status" => "required|string|in:1,2,3",
+            // "doctor_id" => "required|integer|exists:users,id",
+            // "patient_id" => "required|integer|exists:patients,id",
+            // "appointment_date" => "required|date|after:today",
+        ];
+
+        $messages = [
+            //'status.required' => __("The status is required."),
+            // 'doctor_id.required' => __("The doctor is required."),
+            // 'patient_id.required' => __("The patient is required."),
+            // 'appointment_date.after' => __("The appointment date must be in the future."),
+        ];
+
+        return [$rules, $messages];
+    }
+
+
+    // public function preparePatientData($input): array
+    // {
+    //     return [
+    //         "type" => 5,
+
+    //         "name" => $input["name"],
+    //         "email" => $input["email"],
+    //         "phone" => $input["phone"],
+    //         "address" => $input["address"],
+    //        // "notes" => $input["notes"] ?? '', // Optional field for additional notes
+    //     ];
+    // }
+    // public function saveData($input)
+    // {
+    //     return self::query()->create($input);
+    // }
+    // public function updateData($id, $input)
+    // {
+    //     return self::query()
+    //         ->where("id", $id)
+    //         ->update($input);
+    // }
+    // public function deleteData($ids)
+    // {
+    //     $query = self::query();
+    //     if (Arr::isOfType($ids)) {
+    //         $query->whereIn("id", $ids);
+    //     } else {
+    //         $query->where("id", $ids);
+    //     }
+    //     return $query->delete();
+    // }
+
+    // public function deleteData($ids)
+    // {
+    //     return self::whereIn("id", (array)$ids)->delete();
+    // }
+    
+
 
     /**
      * Get all users from database.
@@ -514,7 +635,7 @@ class User extends Authenticatable
     public function masked_name($user)
     {
         $str = "";
-        $str .= substr($user->first_name,0,0) . "***" . substr($user->last_name,1,1) . "***";
+        $str .= substr($user->first_name,0,0) . "*" . substr($user->last_name,1,1) . "*";
         return $str;
     }
 
